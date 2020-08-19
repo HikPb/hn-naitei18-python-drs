@@ -1,0 +1,16 @@
+{% block content %}
+    <h1>My Form </h1>
+    {% if form_list %}
+    <ul>
+
+      {% for form in form_list %} 
+      <li>
+        <a href="{% url 'form_detail' form.id %}">{{form.title}}</a> ({{ form.created_at }})        
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no form</p>
+    {% endif %}       
+{% endblock %}

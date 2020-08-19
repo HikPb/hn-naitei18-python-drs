@@ -1,8 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 {% load i18n %}
-
-{% block content %}
+{% load static %}
 <head>
-    {% load static %}
+    {% block title %}<title>{% trans "Daily Report System"%}</title>{% endblock %}
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -10,133 +11,176 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css" integrity="sha512-kb1CHTNhoLzinkElTgWn246D6pX22xj8jFNKsDmVwIQo+px7n1yjJUZraVuR/ou6Kmgea4vZXZeUDbqKtXkEMg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css" integrity="sha512-+mlclc5Q/eHs49oIOCxnnENudJWuNqX5AogCiqRBgKnpoplPzETg2fkgBFVC6WYUVxYYljuxPNG8RE7yBy1K+g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<body>
 <div class="container-fluid p-0">
 
 <!-- Bootstrap row -->
-<div class="wrapper" id="body-row">
-
-    <!-- Sidebar -->
-<!--    <div class="row">-->
-<!--        <div class="col-sm-2">-->
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>{% trans "MAIN MENU" %}</small>
-            </li>
-            <!-- /END Separator -->
-            <!-- Menu with submenu -->
-            <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
-               class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-dashboard fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Dashboard</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
-            <!-- Submenu content -->
-            <div id='submenu1' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Charts</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Reports</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Tables</span>
-                </a>
-            </div>
-            <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
-               class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Profile</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
-            <!-- Submenu content -->
-            <div id='submenu2' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Settings</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Password</span>
-                </a>
-            </div>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-tasks fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Tasks</span>
-                </div>
-            </a>
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>OPTIONS</small>
-            </li>
-            <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Calendar</span>
-                </div>
-            </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="far fa-comment-dots fa-fw mr-3"></span>
-                    <!--                    <span class="fa fa-envelope-o fa-fw mr-3"></span>-->
-                    <span class="menu-collapsed">Messages</span>
-                    <span class="badge badge-pill badge-primary ml-2">5
-                    </span>
-                </div>
-            </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="far fa-bell fa-fw mr-3"></span>
-                    <!--                    <span class="fa fa-envelope-o fa-fw mr-3"></span>-->
-                    <span class="menu-collapsed">Notification</span>
-                    <span class="badge badge-pill badge-primary ml-2">1
-                    </span>
-                </div>
-            </a>
-            <!-- Separator without title -->
-            <li class="list-group-item sidebar-separator menu-collapsed"></li>
-            <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fab fa-accusoft fa-fw mr-3"></span>
-                    <span class="menu-collapsed">R</span>
-                </div>
-            </a>
-            <a href="#" data-toggle="sidebar-colapse"
-               class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                    <span id="collapse-text" class="menu-collapsed">Collapse</span>
-                </div>
-            </a>
-        </ul><!-- List Group END-->
-    </div><!-- sidebar-container END -->
-</div>
-      <footer class="footer">
+        <!-- Sidebar -->
+    <!--    <div class="row">-->
+    <!--        <div class="col-sm-2">-->
+    {% block navbar %}
+    <nav id="navbar_top" class="navbar navbar-expand-xl navbar-dark">
         <div class="container-fluid">
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Bá, Yến , Nghĩa </a> for a better web.
-          </div>
-          <!-- your footer here -->
+            <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Daily Report <b>System</b></a>  		
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
+                <form class="navbar-form form-inline">
+                    <div class="input-group search-box">								
+                        <input type="text" id="search" class="form-control" placeholder="Search here...">
+                        <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+                    </div>
+                </form>
+                <div class="navbar-nav ml-auto">
+                    <a href="#" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
+                    <div class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="https://www.tutorialrepublic.com/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"> {{email}} <b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                            <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
+                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
+                            <div class="divider dropdown-divider"></div>
+                            <a href="{% url 'logout-user' %}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </footer>
+    </nav>
+    {% endblock %}
+    <div class="d-inline-flex">
+        {% if user.is_authenticated %}
+        {% block sidebar %}
+        <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+            <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+            <!-- Bootstrap List Group -->
+            <ul class="list-group">
+                <!-- Separator with title -->
+                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                    <strong>{% trans "MAIN MENU" %}</strong>
+                </li>
+                <!-- /END Separator -->
+                <!-- Menu with submenu -->
+                <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
+                class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-dashboard fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Working calendar" %}</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+                <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+                class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-user fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Profile" %}</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+                <!-- Submenu content -->
+                <div id='submenu2' class="collapse sidebar-submenu">
+                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span class="menu-collapsed">{% trans "Settings" %}</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span class="menu-collapsed">{% trans "Password" %}</span>
+                    </a>
+                </div>
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-tasks fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Tasks" %}</span>
+                    </div>
+                </a>
+                <!-- Separator with title -->
+                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                    <strong>{% trans "STAFF FORMS" %}</strong>
+                </li>
+                <!-- /END Separator -->
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fab fa-wpforms fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Report" %}</span>
+                    </div>
+                </a>
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-file-signature fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Request form" %}</span>
+                        </span>
+                    </div>
+                </a>
+                {% if user.is_staff %}
+                <!-- Separator without title -->
+                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                    <strong>{% trans "MANAGEMENT" %}</strong>
+                </li>
+                <!-- /END Separator -->
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-file-invoice fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Employee's report" %}</span>
+                    </div>
+                </a>
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fab fa-accusoft fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Employee's request" %}</span>
+                    </div>
+                </a>
+                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                    <strong>{% trans "ADMIN" %}</strong>
+                </li>
+                <!-- /END Separator -->
+                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-users-cog fa-fw mr-3"></span>
+                        <span class="menu-collapsed">{% trans "Admin site" %}</span>
+                    </div>
+                </a>
+                {% endif %}
+                <a href="#" data-toggle="sidebar-colapse"
+                class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                        <span id="collapse-text" class="menu-collapsed">{% trans "Collapse" %}</span>
+                    </div>
+                </a>
+            </ul><!-- List Group END-->
+        </div>
+        {% endblock %}<!-- sidebar-container END -->
+        {% endif %}
+        <div id= "content" class="d-inline-block">
+            {% block content %}{% endblock %}
+        </div>
     </div>
+    {% block footer%}
+        <div class="container-fluid" id="footer">
+            <footer class="footer">
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script>, made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Creative Bá, Yến , Nghĩa </a> for a better web.
+                </div>
+            </footer>
+        </div>
+    {% endblock %}
 </div><!-- body-row END -->
-
-
-</div><!-- container -->
+</body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
@@ -153,5 +197,6 @@
         integrity="sha512-u1L7Dp3BKUP3gijgSRoMTNxmDl/5o+XOHupwwa7jsI1rMzHrllSLKsGOfqjYl8vrEG+8ghnRPNA/SCltmJCZpQ=="
         crossorigin="anonymous"></script>
 <script src="{% static '/js/sidebar.js' %}"></script>
+<script src="{% static '/js/navbar.js' %}"></script>
 
-{% endblock %}
+</html>
