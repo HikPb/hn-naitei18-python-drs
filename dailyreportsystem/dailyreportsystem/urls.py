@@ -1,4 +1,4 @@
-"""NewPj URL Configuration
+"""URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -18,9 +18,12 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from drs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', views.loginUser, name='login-user'),
+    path('logout/', views.logoutUser, name='logout-user'),
     path('drs/', include('drs.urls')),
     path('', RedirectView.as_view(url='drs/')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
