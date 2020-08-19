@@ -42,3 +42,33 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+class ListRequestFormEmployee(FeedDataView):
+    token = RequestFormTable.token
+    def get_queryset(self):
+        return super(ListRequestFormEmployee, self).get_queryset().filter(id__gt=5)
+
+class FormCreateView(LoginRequiredMixin, CreateView):
+    model = Form
+    template_name = 'requestform/form_form.html'
+    fields = '__all__'
+
+class FormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Form
+    template_name = 'requestform/form_form.html'
+    fields = '__all__'
+
+    def test_func(self):
+        if self.get_object().status == 'p':
+            return True
+        return False
+
+
+class FormDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Form
+    success_url = '/'
+    template_name = 'requestform/form_confirm_delete.html'
+
+    def test_func(self):
+        if self.get_object().status == 'p':
+            return True
+        return False
