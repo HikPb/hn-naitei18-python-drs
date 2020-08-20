@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-from table.views import FeedDataView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import CustomUserCreationForm
 from .models import Form
-from .tables import RequestFormTable
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 
@@ -18,7 +15,7 @@ def index(request):
     context = {
         'email' : email,
     }
-    return render(request, 'index.html', context=context)
+    return render(request, 'base_generic.html', context=context)
 def loginUser(request):
 
     if request.method == 'POST':
