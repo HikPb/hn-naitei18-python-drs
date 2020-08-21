@@ -8,15 +8,17 @@
 
     #sidebar-container {
         min-height: 100vh;
-        background-color: #132644;
+        background-color: #626262;
         padding: 0;
+        overflow-y:none;
+        max-height: 100%;
         /* flex: unset; */
     }
 
     .sidebar-expanded {
         width: 230px;
     }
-
+    
     .sidebar-collapsed {
         /*width: 60px;*/
         width: 100px;
@@ -30,7 +32,9 @@
 
     /* ----------| Submenu item*/
     #sidebar-container .list-group li.list-group-item {
-        background-color: #132644;
+        background-color: #626262;
+        color: white;
+
     }
 
     #sidebar-container .list-group .sidebar-submenu a {
@@ -44,20 +48,20 @@
 
     /* ----------| Separators */
     .sidebar-separator-title {
-        background-color: #132644;
+        background-color: #626262;
         height: 35px;
     }
 
     .sidebar-separator {
-        background-color: #132644;
+        background-color: #626262;
         height: 25px;
     }
 
     .logo-separator {
-        background-color: #132644;
+        background-color: #626262;
         height: 60px;
     }
 
     a.bg-dark {
-        background-color: #132644 !important;
+        background-color: #626262 !important;
     }
