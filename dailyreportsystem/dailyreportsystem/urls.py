@@ -22,8 +22,8 @@ from drs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.loginUser, name='login-user'),
-    path('logout/', views.logoutUser, name='logout-user'),
     path('drs/', include('drs.urls')),
     path('', RedirectView.as_view(url='drs/')),
+    path('login/',views.loginUser, name='login-user'),
+    path('profile/', views.profiletUser, name='profile-user')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

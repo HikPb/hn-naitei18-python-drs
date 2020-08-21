@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Form
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from drs.models import CustomUserManager, User, Form, Report, Notification, Skill, Position, Division, TimeKeeping
 
 def index(request):
     """View function for home page of site."""
@@ -77,3 +78,6 @@ class FormDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.get_object().status == 'p':
             return True
         return False
+
+def profiletUser(request):
+    return render(request, 'profile.html')
