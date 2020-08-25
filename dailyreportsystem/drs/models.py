@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     # notice the absence of a "Password field", that is built in.
     name = models.CharField(max_length=50, null=True)
     dob = models.DateTimeField(null=True, blank=True)
