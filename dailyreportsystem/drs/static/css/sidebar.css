@@ -1,67 +1,89 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 /*-------------------------------- END ----*/
-    #body-row {
-        margin-left: 0;
-        margin-right: 0;
-    }
+body{
+    margin-bottom: 50px;
+}
+#sidebar-container {
+    flex-grow: 0;
+    min-height: 100%;
+    background-color: #626262;
+    padding: 0;
+    max-height: 100%;
+    position: sticky;
+    top: 70px
+    /* flex: unset; */
+}
 
-    #sidebar-container {
-        min-height: 100vh;
-        background-color: #626262;
-        padding: 0;
-        overflow-y:none;
-        max-height: 100%;
-        /* flex: unset; */
-    }
+.sidebar-expanded {
+    width: 340px;
+}
 
-    .sidebar-expanded {
-        width: 230px;
-    }
-    
-    .sidebar-collapsed {
-        /*width: 60px;*/
-        width: 100px;
-    }
+.sidebar-collapsed {
+    /*width: 60px;*/
+    width: 100px;
+}
 
-    /* ----------| Menu item*/
-    #sidebar-container .list-group a {
-        height: 50px;
-        color: white;
-    }
+/* ----------| Menu item*/
+#sidebar-container .list-group a {
+    height: 50px;
+    color: white;
+}
 
-    /* ----------| Submenu item*/
-    #sidebar-container .list-group li.list-group-item {
-        background-color: #626262;
-        color: white;
+/* ----------| Submenu item*/
+#sidebar-container .list-group li.list-group-item {
+    background-color: #626262;
+    color: white;
 
-    }
+}
 
-    #sidebar-container .list-group .sidebar-submenu a {
-        height: 45px;
-        padding-left: 30px;
-    }
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
 
-    .sidebar-submenu {
-        font-size: 0.9rem;
-    }
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
 
-    /* ----------| Separators */
-    .sidebar-separator-title {
-        background-color: #626262;
-        height: 35px;
-    }
+/* ----------| Separators */
+.sidebar-separator-title {
+    background-color: #626262;
+    height: 35px;
+}
 
-    .sidebar-separator {
-        background-color: #626262;
-        height: 25px;
-    }
+.sidebar-separator {
+    background-color: #626262;
+    height: 25px;
+}
 
-    .logo-separator {
-        background-color: #626262;
-        height: 60px;
-    }
+.logo-separator {
+    background-color: #626262;
+    height: 60px;
+}
 
-    a.bg-dark {
-        background-color: #626262 !important;
-    }
+a.bg-dark {
+    background-color: #626262 !important;
+}
+
+#container-base{
+    display: flex;
+    align-items: flex-start;
+}
+
+#content{
+    display: block;
+    width: 100%;
+    height: 100vh;
+    flex-grow: 1;
+    flex-shrink: 0.8;
+}
+
+.menu-collapsed {
+    font-size: 16px;
+}
+.footer{
+    background-color: rgb(248, 230, 206);
+    border-top: 1px rgb(114, 68, 9);
+    text-align: center;
+}

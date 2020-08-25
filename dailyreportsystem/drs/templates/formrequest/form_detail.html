@@ -1,10 +1,85 @@
+
 {% block content %}
-<h1>: Form:{{ form.title }} </h1>
-<p>{{form.form_type}}</p>
-
-<p><strong>Status:</strong> {{ form.status }}</p>
-<p><strong>Time from:</strong> {{ form.compensation_from }}</p> 
-<p><strong>Sender:</strong> {{ form.sender }}</p>  
-<p><strong>Receiver:</strong> {{ form.receiver }}</p>  
-
+<div class="modal_show_details"><div class="modal show-request in" style="display: block; padding-right: 23px;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h2 class="panel-title text-center">Request information</h2>
+        </div>
+        <div class="modal-body-show-request modal-body"><div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Detail information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <table class="table table-user-information">
+          <tbody>
+            <tr>
+              <td>Staff Code</td>
+              <td>N120099</td>
+            </tr>
+            <tr>
+              <td>Employee name</td>
+              <td>Pham Ngoc Ba</td>
+            </tr>
+            <tr>
+              <td>Company</td>
+              <td>Sun-asterisk</td>
+            </tr>
+            <tr>
+              <td>Workspace</td>
+              <td>Handico Office</td>
+            </tr>
+            <tr>
+              <td>Department</td>
+              <td>Ruby members</td>
+            </tr>
+            <tr>
+              <td>
+                  Time request
+              </td>
+              <td>
+                07:45 - 07:51
+        08/25/2020
+              </td>
+            </tr>
+            <tr>
+              <td>Reason</td>
+              <td><p class="line-infomation">Em bị kẹt xe, thang máy  đông.</p></td>
+            </tr>
+              <tr>
+                <td>Time compensation</td>
+                <td>
+                  16:45 - 16:51
+        08/25/2020
+                </td>
+              </tr>
+            <tr>
+              <td>Type</td>
+              <td>In late (M)</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>
+                  <span class="label label-default">Forwarded</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 {% endblock %}

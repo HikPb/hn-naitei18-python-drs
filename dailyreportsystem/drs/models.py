@@ -22,7 +22,6 @@ class CustomUserManager(BaseUserManager):
         Creates and saves a staff user with the given email and password.
         """
         extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_active', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True.'))
@@ -41,7 +40,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
         return self.create_user(email, password, **extra_fields)
-    
+
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom for User Model"""
     objects = CustomUserManager()
@@ -49,19 +48,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='email address',
         max_length=255,
         unique=True,
-    )
-        
+    )   
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     # notice the absence of a "Password field", that is built in.
     name = models.CharField(max_length=50, null=True)
-    dob = models.DateTimeField(null=True, blank=True)
-    phone = models.CharField(max_length=11, null=True)
-    skill = models.ManyToManyField('Skill', help_text="Your skills")
-    manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='manager_user')
-    division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
-    position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True)
+    dob = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=11, null=True, blank=True)
+    skill = models.ManyToManyField('Skill', help_text="Your skills", blank=True)
+    manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True, related_name='manager_user')
+    division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
+    position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] # Email & Password are required by default.
@@ -94,8 +92,6 @@ class Form(models.Model):
     form_type = models.CharField(
         max_length=2,
         choices=FORM_TYPE,
-        blank=True,
-        default='rp',
         help_text='Form type',
     )
 
@@ -110,11 +106,13 @@ class Form(models.Model):
     status = models.CharField(
         max_length=1,
         choices=FORM_STATUS,
-        blank=True,
         default='p',
         help_text='Form status',
     )
     # Methods
+    class Meta:
+        ordering = ['created_at']
+
     def get_absolute_url(self):
         """Returns the url to access a particular instance of MyModelName."""
         return reverse('form', args=[str(self.id)])

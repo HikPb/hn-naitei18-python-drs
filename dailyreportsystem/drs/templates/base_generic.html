@@ -25,7 +25,7 @@
     {% block navbar %}
     <nav id="navbar_top" class="navbar navbar-expand-xl navbar-dark">
         <div class="container-fluid">
-            <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Daily Report <b>System</b></a>  		
+            <a href="{% url 'home' %}" class="navbar-brand"><i class="fa fa-cube"></i>Daily Report <b>System</b></a>  		
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,21 +38,17 @@
                     </div>
                 </form>
                 <div class="navbar-nav ml-auto">
-                    <a href="#" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
+                    <a href="{% url 'home'%}" class="nav-item nav-link active"><i class="fa fa-home"></i><span>{% trans "Home"%}</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>    	
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>{% trans "Notifications"%}</span></a>
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="https://www.tutorialrepublic.com/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"> {{email}} <b class="caret"></b></a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
-                            <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
-                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
+                            <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
+                            <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> {% trans "Calendar"%}</a>
+                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> {% trans "Settings"%}</a>
                             <div class="divider dropdown-divider"></div>
-                            <a href="{% url 'logout-user' %}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+                            <a href="{% url 'logout-user' %}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> {% trans "Logout"%}</a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +56,7 @@
         </div>
     </nav>
     {% endblock %}
-    <div class="d-inline-flex">
+    <div id="container-base">
         {% if user.is_authenticated %}
         {% block sidebar %}
         <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
@@ -76,7 +72,7 @@
                 <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
                 class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-dashboard fa-fw mr-3"></span>
+                        <span class="s-icon fa fa-dashboard fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Working calendar" %}</span>
                         <span class="submenu-icon ml-auto"></span>
                     </div>
@@ -84,7 +80,7 @@
                 <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
                 class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-user fa-fw mr-3"></span>
+                        <span class="s-icon fa fa-user fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Profile" %}</span>
                         <span class="submenu-icon ml-auto"></span>
                     </div>
@@ -100,7 +96,7 @@
                 </div>
                 <a href="#" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-tasks fa-fw mr-3"></span>
+                        <span class="s-icon fa fa-tasks fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Tasks" %}</span>
                     </div>
                 </a>
@@ -111,13 +107,13 @@
                 <!-- /END Separator -->
                 <a href="#" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fab fa-wpforms fa-fw mr-3"></span>
+                        <span class="s-icon fab fa-wpforms fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Report" %}</span>
                     </div>
                 </a>
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <a href="{% url 'my_forms'%}" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fas fa-file-signature fa-fw mr-3"></span>
+                        <span class="s-icon fas fa-file-signature fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Request form" %}</span>
                         </span>
                     </div>
@@ -130,13 +126,13 @@
                 <!-- /END Separator -->
                 <a href="#" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fas fa-file-invoice fa-fw mr-3"></span>
+                        <span class="s-icon fas fa-file-invoice fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Employee's report" %}</span>
                     </div>
                 </a>
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <a href="{% url 'all_requests'%}" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fab fa-accusoft fa-fw mr-3"></span>
+                        <span class="s-icon fab fa-accusoft fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Employee's request" %}</span>
                     </div>
                 </a>
@@ -162,23 +158,22 @@
         </div>
         {% endblock %}<!-- sidebar-container END -->
         {% endif %}
-        <div id= "content" class="d-inline-block">
+        <div id= "content">
             {% block content %}{% endblock %}
         </div>
     </div>
-    {% block footer%}
-        <div class="container-fluid" id="footer">
-            <footer class="footer">
-                <div class="copyright float-right">
-                    &copy;
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script>, made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Bá, Yến , Nghĩa </a> for a better web.
-                </div>
-            </footer>
-        </div>
-    {% endblock %}
+    <!-- {% block footer%}
+        <footer class="footer">
+            <div class="copyright">
+                Sun* Tranning 
+                &copy;
+                <script>
+                document.write(new Date().getFullYear())
+                </script>, DRS made by 
+                <a href="https://www.creative-tim.com" target="_blank">TeamOne</a>
+            </div>
+        </footer>
+    {% endblock %} -->
 </div><!-- body-row END -->
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -198,5 +193,7 @@
         crossorigin="anonymous"></script>
 <script src="{% static '/js/sidebar.js' %}"></script>
 <script src="{% static '/js/navbar.js' %}"></script>
+{% block js %}{% endblock %}
+
 
 </html>
