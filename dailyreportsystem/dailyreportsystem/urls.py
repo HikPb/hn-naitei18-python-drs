@@ -25,8 +25,10 @@ from django.conf.urls.static import static
 from drs import views
 
 router = routers.DefaultRouter()
-router.register(r'myforms', views.MyForms, basename='form_user_view')
-router.register(r'allrequests', views.FormRequest, basename='form_manager_view')
+router.register(r'myforms', views.MyForms,basename='form_user_view')
+router.register(r'allrequests', views.FormRequest,basename='form_manager_view')
+router.register(r'listreports', views.ListReport, basename='report_user_view')
+router.register(r'managerlistreports', views.ListReportManager, basename='report_user_view')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +37,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='drs/')),
     path('login/', views.loginUser, name='login-user'),
     path('logout/', views.logoutUser, name='logout-user'),
+    path('profile/', views.profiletUser, name='profile-user'),
     path('about_us/', views.about_us, name='about_us'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

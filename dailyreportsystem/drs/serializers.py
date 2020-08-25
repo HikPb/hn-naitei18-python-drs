@@ -1,5 +1,14 @@
 from rest_framework import serializers
-from .models import Form, User, Notification
+from .models import Form, User, Report, Notification
+
+class UserSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = User
+        fields = (
+            'id', 'name', 'email',
+        )
+        datatables_always_serialize = ('id',)
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -37,3 +46,12 @@ class NotificationSerializer(serializers.ModelSerializer):
 #         fields = (
 #         'rank', 'name', 'year', 'artist_name', 'genres',
 #         )
+class ReportSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    sender = UserSerializer()
+    receiver = UserSerializer()
+    class Meta:
+        model = Report
+        fields = (
+            'id', 'created_at', 'plan', 'actual', 'issue', 'next', 'receiver', "sender",)
+        datatables_always_serialize = ('id',)

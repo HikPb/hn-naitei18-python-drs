@@ -16,7 +16,6 @@ from django.contrib.messages import constants as messages
 from django.utils.translation import ugettext_lazy as _
 from decouple import config
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
