@@ -10,19 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from pathlib import Path
+import environ
 import os
 from django.utils.translation import ugettext_lazy as _
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i=in)^&rq-5-yrm1hf3j3*i6i7%hn9+1t8kh18d79k%bx*(xf7'
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -133,3 +140,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS=[
+os.path.join(BASE_DIR,'static')
+]
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+SECURITY_EMAIL_SENDER = EMAIL_HOST
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
