@@ -1,16 +1,59 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+{% load static %}
 {% block content %}
-    <h1>My Form </h1>
-    {% if form_list %}
-    <ul>
 
-      {% for form in form_list %} 
-      <li>
-        <a href="{% url 'form_detail' form.id %}">{{form.title}}</a> ({{ form.created_at }})        
-      </li>
-      {% endfor %}
-    </ul>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+<div class="limiter">
+  <div class="container-table100">
+    <div class="table100">
+      <table id="myforms" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr class="table100-head">
+            <th class="column1">#</th>
+            <th class="column2">Title</th>
+            <th class="column3">Type</th>
+            <th class="column4">Compensation from</th>
+            <th class="column5">Compensation to</th>
+            <th class="column6">Reason</th>
+            <th class="column7">Status</th>
+            <th class="column8">Action</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</di>
+{% endblock %}
+  <!-- Load js for initializing tables via their server-side options -->
+{% block js %}
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var table = $('#myforms').DataTable({
+      "serverSide": true,
+      "ajax": {
+            "url": "/api/myforms/?format=datatables",
+            "type": "GET",
+            "beforeSend": function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token|escapejs }}");
+            }
+        },
+      "columns": [
+          {"data": "id"},
+          {"data": "title"},
+          {"data": "form_type"},
+          {"data": "compensation_from"},
+          {"data": "compensation_to"},
+          {"data": "content"},
+          {"data": "status"},
+      ],
+  });
 
-    {% else %}
-      <p>There are no form</p>
-    {% endif %}       
+  });
+  
+</script>
 {% endblock %}

@@ -15,15 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+from django.conf.urls import include as incR
 from django.views.generic import RedirectView
 from django.conf import settings
+from rest_framework import routers
 from django.conf.urls.static import static
 from drs import views
 
+router = routers.DefaultRouter()
+router.register(r'myforms', views.MyForms)
+router.register(r'allrequests', views.FormRequest)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url('^api/', incR(router.urls)),
     path('drs/', include('drs.urls')),
     path('', RedirectView.as_view(url='drs/')),
-    path('login/',views.loginUser, name='login-user'),
-    path('logout/',views.logoutUser, name='logout-user'),
+    path('login/', views.loginUser, name='login-user'),
+    path('logout/', views.logoutUser, name='logout-user'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
