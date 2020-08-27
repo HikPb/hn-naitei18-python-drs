@@ -1,17 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import User, Form, Division, Position, Notification, Skill, TimeKeeping, Report
+from .models import User, Form, Division, Position, Notification, Skill, TimeKeeping, Report, Profile
 
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ('email', 'is_staff', 'is_active', 'manager', 'name', 'dob', 'division')
+    list_display = ('email', 'is_staff', 'is_active', 'manager', 'name', 'dob', 'division', 'sex', 'phone', 'position')
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email', 'password','manager', 'name', 'dob', 'division', 'skill')}),
+        (None, {'fields': ('email', 'password','manager', 'name', 'dob', 'division', 'sex', 'phone', 'position', 'skill')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
@@ -30,6 +30,7 @@ admin.site.register(Division)
 admin.site.register(TimeKeeping)
 admin.site.register(Notification)
 admin.site.register(Report)
+admin.site.register(Profile)
 
 class FormView(admin.ModelAdmin):
     """Defines format of inline book insertion (used in AuthorAdmin)"""

@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css" integrity="sha512-+mlclc5Q/eHs49oIOCxnnENudJWuNqX5AogCiqRBgKnpoplPzETg2fkgBFVC6WYUVxYYljuxPNG8RE7yBy1K+g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% block media %}{% endblock %}
 </head>
 <body>
 <div class="container-fluid p-0">
@@ -42,9 +42,12 @@
                     <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>    	
                     <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>{% trans "Notifications"%}</span></a>
                     <div class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="https://www.tutorialrepublic.com/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"> {{email}} <b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
+                            <img src="{{ user.profile.image.url }}" class="avatar" alt="Avatar"> {{email}}
+                            <b class="caret"></b>
+                        </a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
+                            <a href="/drs/profile/" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
                             <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> {% trans "Calendar"%}</a>
                             <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> {% trans "Settings"%}</a>
                             <div class="divider dropdown-divider"></div>
@@ -140,7 +143,7 @@
                     <strong>{% trans "ADMIN" %}</strong>
                 </li>
                 <!-- /END Separator -->
-                <a href="register" class="bg-dark list-group-item list-group-item-action">
+                <a href="/drs/register" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fas fa-users-cog fa-fw mr-3"></span>
                         <span class="menu-collapsed">{% trans "Admin register site" %}</span>

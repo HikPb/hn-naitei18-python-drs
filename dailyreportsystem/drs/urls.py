@@ -14,5 +14,6 @@ urlpatterns = [
     path('register/success_activation/', views.success_activation, name='success_activation'),
     path('register/fail_activation/', views.fail_activation, name='fail_activation'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-    path('profile/', views.profiletUser, name='profile-user')
+    path('profile/', views.profile, name='profile'),
+    path('profile_update/', views.profile_update, name='profile_update'),
 ]
