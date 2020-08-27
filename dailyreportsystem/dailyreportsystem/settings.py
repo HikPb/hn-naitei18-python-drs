@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_datatables', 
+    'crispy_forms',
     'drs',
+
 ]
 
 MIDDLEWARE = [
@@ -138,8 +140,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-STATICFILES_DIRS=[
+
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
@@ -164,3 +169,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
     'PAGE_SIZE': 50,
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'

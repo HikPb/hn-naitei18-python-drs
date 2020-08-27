@@ -1,0 +1,218 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+{% load static %}
+{% block media %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row profile">
+            <div class="col-md-3">
+                <div class="profile-sidebar">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="">
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            {{ user.name }}
+                        </div>
+                        <div class="profile-usertitle-job">
+                            {{ user.position }}
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <div class="profile-userbuttons">
+                        <a href="/drs/profile_update/"  class="btn btn-primary" >Update Profile User</a>
+                    </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- SIDEBAR MENU -->
+                    <!-- END MENU -->
+                    <div class="portlet light bordered">
+                    <!-- STAT -->
+                        <div class="row list-separated profile-stat">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+{#                            <div class="uppercase profile-stat-title"> 37 </div>#}
+                            <div class="uppercase profile-stat-text"> Reports </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+{#                            <div class="uppercase profile-stat-title"> 51 </div>#}
+                            <div class="uppercase profile-stat-text"> Tasks </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+{#                            <div class="uppercase profile-stat-title"> 61 </div>#}
+                            <div class="uppercase profile-stat-text"> Requests </div>
+                        </div>
+                    </div>
+                    <!-- END STAT -->
+                        <div>
+                            <h4 class="profile-desc-title">Daily Report System</h4>
+                            <span class="profile-desc-text"> afterFIT Family </span>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-globe"></i>
+                                <a href="https://afterfit.co.jp/">afterFIT.com</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-twitter"></i>
+                                <a href="https://www.twitter.com/tonytit/">@afterFIT</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-facebook"></i>
+                                <a href="https://www.facebook.com/afterFIT.Vietnam/">afterFIT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="toppad col-md-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Personal Information
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-md-12 col-lg-12 ">
+                                    <div class="panel-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Basic Information</div>
+                                            <div class="panel-body">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="col-md-pull-3">
+                                                            <strong>
+                                                                <i class="fa fa-user-o"></i> Name
+                                                            </strong>
+                                                        </td>
+                                                        <td style="text-align: right">{{ user.name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-md-pull-3">
+                                                            <strong>
+                                                                <i class="fa fa-envelope-o"></i> Email
+                                                            </strong>
+                                                        </td>
+                                                        <td style="text-align: right">{{ user.email }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-md-pull-3">
+                                                            <strong>
+                                                                <i class="fa fa-transgender"></i> Sex
+                                                            </strong>
+                                                        </td>
+                                                        <td style="text-align: right">{{ user.sex }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-md-pull-3">
+                                                            <strong>
+                                                                <i class="fa fa-birthday-cake"></i> DOB
+                                                            </strong>
+                                                        </td>
+                                                        <td style="text-align: right">{{ user.dob}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-md-pull-3">
+                                                            <strong>
+                                                                <i class="fa fa-phone"></i> Phone number
+                                                            </strong>
+                                                        </td>
+                                                        <td style="text-align: right">{{ user.phone }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active">
+                                                            <a data-toggle="tab" href="#working-infor">Working information</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="tab-content">
+                                                        <div id="working-infor" class="tab-pane fade in active">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+                                                                <!--
+                                                                <tr>
+                                                                    <td class="col-md-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-address-card-o"></i> Mã nhân viên
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td>N120103</td>
+                                                                </tr>
+                                                                -->
+                                                                <tr>
+                                                                    <td class="col-md-pull-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-address-card"></i> Skill
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="text-align: right">{{ user.skill.all|join:", " }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-pull-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-address-card-o"></i> Manager name
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="text-align: right">{{ user.manager }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-pull-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-address-card"></i> Position
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="text-align: right">{{ user.position}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-pull-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-home"></i> Division
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="text-align: right">
+                                                                        <a class="label label-warning">{{ user.division}}</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <!--
+                                                                <tr>
+                                                                    <td class="col-md-3">
+                                                                        <strong>
+                                                                            <i class="fa fa-users"></i> Organization chart
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label class="label-info label-custom">
+                                                                            <a class="text-color-white" href="/vi/dashboard/groups/311/user_groups">SUN*/Vietnam education unit/Education section/Group 2/Ruby members</a>
+                                                                        </label>
+                                                                    </td>
+                                                                </tr>
+                                                                -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
