@@ -47,7 +47,7 @@
                             <b class="caret"></b>
                         </a>
                         <div class="dropdown-menu">
-                            <a href="/drs/profile/" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
+                            <a href="{% url 'profile' %}" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
                             <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> {% trans "Calendar"%}</a>
                             <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> {% trans "Settings"%}</a>
                             <div class="divider dropdown-divider"></div>
@@ -60,123 +60,124 @@
     </nav>
     {% endblock %}
     <div id="container-base">
-        {% if user.is_authenticated %}
         {% block sidebar %}
-        <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-            <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-            <!-- Bootstrap List Group -->
-            <ul class="list-group">
-                <!-- Separator with title -->
-                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                    <strong>{% trans "MAIN MENU" %}</strong>
-                </li>
-                <!-- /END Separator -->
-                <!-- Menu with submenu -->
-                <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
-                class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fa fa-dashboard fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Working calendar" %}</span>
-                        <span class="submenu-icon ml-auto"></span>
-                    </div>
-                </a>
-                <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
-                class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fa fa-user fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Profile" %}</span>
-                        <span class="submenu-icon ml-auto"></span>
-                    </div>
-                </a>
-                <!-- Submenu content -->
-                <div id='submenu2' class="collapse sidebar-submenu">
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                        <span class="menu-collapsed">{% trans "Settings" %}</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                        <span class="menu-collapsed">{% trans "Password" %}</span>
-                    </a>
+            {% if user.is_authenticated %}
+                <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+                    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <!-- Bootstrap List Group -->
+                    <ul class="list-group">
+                        <!-- Separator with title -->
+                        <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                            <strong>{% trans "MAIN MENU" %}</strong>
+                        </li>
+                        <!-- /END Separator -->
+                        <!-- Menu with submenu -->
+                        <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
+                        class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="s-icon fa fa-dashboard fa-fw mr-3"></span>
+                                <span class="menu-collapsed">{% trans "Working calendar" %}</span>
+                                <span class="submenu-icon ml-auto"></span>
+                            </div>
+                        </a>
+                        <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+                        class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="s-icon fa fa-user fa-fw mr-3"></span>
+                                <span class="menu-collapsed">{% trans "Profile" %}</span>
+                                <span class="submenu-icon ml-auto"></span>
+                            </div>
+                        </a>
+                        <!-- Submenu content -->
+                        <div id='submenu2' class="collapse sidebar-submenu">
+                            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="menu-collapsed">{% trans "Settings" %}</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="menu-collapsed">{% trans "Password" %}</span>
+                            </a>
+                        </div>
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="s-icon fa fa-tasks fa-fw mr-3"></span>
+                                <span class="menu-collapsed">{% trans "Tasks" %}</span>
+                            </div>
+                        </a>
+                        <!-- Separator with title -->
+                        <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                            <strong>{% trans "STAFF FORMS" %}</strong>
+                        </li>
+                        <!-- /END Separator -->
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="s-icon fab fa-wpforms fa-fw mr-3"></span>
+                                <span class="menu-collapsed">{% trans "Report" %}</span>
+                            </div>
+                        </a>
+                        <a href="{% url 'my_forms'%}" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="s-icon fas fa-file-signature fa-fw mr-3"></span>
+                                <span class="menu-collapsed">{% trans "Request form" %}</span>
+                            </div>
+                        </a>
+                        {% if user.is_staff %}
+                        <!-- Separator without title -->
+                            <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                                <strong>{% trans "MANAGEMENT" %}</strong>
+                            </li>
+                            <!-- /END Separator -->
+                            <a href="#" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="s-icon fas fa-file-invoice fa-fw mr-3"></span>
+                                    <span class="menu-collapsed">{% trans "Employee's report" %}</span>
+                                </div>
+                            </a>
+                            <a href="{% url 'all_requests'%}" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="s-icon fab fa-accusoft fa-fw mr-3"></span>
+                                    <span class="menu-collapsed">{% trans "Employee's request" %}</span>
+                                </div>
+                            </a>
+                            <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                                <strong>{% trans "ADMIN" %}</strong>
+                            </li>
+                            <!-- /END Separator -->
+                            <a href="{% url 'register' %}" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="fas fa-users-cog fa-fw mr-3"></span>
+                                    <span class="menu-collapsed">{% trans "Admin register site" %}</span>
+                                </div>
+                            </a>
+                        {% endif %}
+                        <a href="#" data-toggle="sidebar-colapse"
+                           class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                                <span id="collapse-text" class="menu-collapsed">{% trans "Collapse" %}</span>
+                            </div>
+                        </a>
+                    </ul><!-- List Group END-->
                 </div>
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fa fa-tasks fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Tasks" %}</span>
-                    </div>
-                </a>
-                <!-- Separator with title -->
-                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                    <strong>{% trans "STAFF FORMS" %}</strong>
-                </li>
-                <!-- /END Separator -->
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fab fa-wpforms fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Report" %}</span>
-                    </div>
-                </a>
-                <a href="{% url 'my_forms'%}" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fas fa-file-signature fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Request form" %}</span>
-                        </span>
-                    </div>
-                </a>
-                {% if user.is_staff %}
-                <!-- Separator without title -->
-                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                    <strong>{% trans "MANAGEMENT" %}</strong>
-                </li>
-                <!-- /END Separator -->
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fas fa-file-invoice fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Employee's report" %}</span>
-                    </div>
-                </a>
-                <a href="{% url 'all_requests'%}" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="s-icon fab fa-accusoft fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Employee's request" %}</span>
-                    </div>
-                </a>
-                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                    <strong>{% trans "ADMIN" %}</strong>
-                </li>
-                <!-- /END Separator -->
-                <a href="/drs/register" class="bg-dark list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fas fa-users-cog fa-fw mr-3"></span>
-                        <span class="menu-collapsed">{% trans "Admin register site" %}</span>
-                    </div>
-                </a>
-                {% endif %}
-                <a href="#" data-toggle="sidebar-colapse"
-                class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                        <span id="collapse-text" class="menu-collapsed">{% trans "Collapse" %}</span>
-                    </div>
-                </a>
-            </ul><!-- List Group END-->
-        </div>
-        {% endblock %}<!-- sidebar-container END -->
-        {% endif %}
+                <!-- sidebar-container END -->
+            {% endif %}
+
+        {% endblock %}
         <div id= "content">
             {% block content %}{% endblock %}
         </div>
     </div>
-    <!-- {% block footer%}
-        <footer class="footer">
-            <div class="copyright">
-                Sun* Tranning 
-                &copy;
-                <script>
-                document.write(new Date().getFullYear())
-                </script>, DRS made by 
-                <a href="https://www.creative-tim.com" target="_blank">TeamOne</a>
-            </div>
-        </footer>
-    {% endblock %} -->
+{#    <!-- {% block footer%}#}
+{#        <footer class="footer">#}
+{#            <div class="copyright">#}
+{#                Sun* Tranning #}
+{#                &copy;#}
+{#                <script>#}
+{#                document.write(new Date().getFullYear())#}
+{#                </script>, DRS made by #}
+{#                <a href="https://www.creative-tim.com" target="_blank">TeamOne</a>#}
+{#            </div>#}
+{#        </footer>#}
+{#{% endblock %} -->#}
 </div><!-- body-row END -->
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"

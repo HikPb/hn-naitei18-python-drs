@@ -1,8 +1,10 @@
 from django.db import models
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db.models.signals import post_save
 from PIL import Image
 
 class CustomUserManager(BaseUserManager):
@@ -63,6 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
 	position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True, blank=True)
 	sex =  models.CharField(max_length=50, null=True, blank=True)
+	# profile = models.ImageField(de)
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []  # Email & Password are required by default.
@@ -225,8 +228,8 @@ class Profile(models.Model):
 
 	display_skill.short_description = 'Skill'
 
-	def save(self):
-		super().save()
+	def save(self, *args, **kwargs):
+		super(Profile, self).save(*args, **kwargs)
 
 		img = Image.open(self.image.path)
 
@@ -234,3 +237,12 @@ class Profile(models.Model):
 			output_size = (300, 300)
 			img.thumbnail(output_size)
 			img.save(self.image.path)
+
+	@receiver(post_save, sender=User)
+	def create_profile(sender, instance, created, **kwargs):
+		if created:
+			Profile.objects.create(user=instance)
+
+	@receiver(post_save, sender=User)
+	def save_profile(sender, instance, **kwargs):
+		instance.profile.save()
