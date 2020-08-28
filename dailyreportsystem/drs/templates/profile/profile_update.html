@@ -1,28 +1,33 @@
 {% extends "base_generic.html" %}
+{% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block title %}<title>Update User Profile</title>{% endblock %}
-
+{% block title %}
+    <title>Update User Profile</title>
+{% endblock %}
 {% block content %}
 <div class="container">
-	<div class="main">
-		<div class="profile-update">
-			<div class="registration_center">
-                <h2>Hello User {{ user.email }}</h2>
-                <div class="profile-update-form">
-                    <div class="container">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">Profile Info</legend>
-                            {{ u_form | crispy}}
-                            {{ p_form | crispy}}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="btn btn-outline-info" type="submit">Update</button>
+	<div class="main row">
+        <div class="col-3"></div>
+		<div class="col-6">
+            <div class="profile-update">
+                <div class="registration_center">
+                    <h2>Hello User {{ user.email }}</h2>
+                    <div class="profile-update-form">
+                        <div class="container">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4">Profile Info</legend>
+                                    {{ u_form | crispy}}
+                                    {{ p_form | crispy}}
+                                </fieldset>
+                                <div class="form-group">
+                                    <button class="btn btn-outline-info" type="submit">Update</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>

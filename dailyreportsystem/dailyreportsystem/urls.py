@@ -35,4 +35,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='drs/')),
     path('login/', views.loginUser, name='login-user'),
     path('logout/', views.logoutUser, name='logout-user'),
+    path('about_us/', views.about_us, name='about_us'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
