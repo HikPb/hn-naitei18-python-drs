@@ -221,3 +221,7 @@ def activate(request, uidb64, token):
 
 def about_us(request):
 	return render(request, 'about_us.html')
+
+
+def division_view(request):
+	return render(request, 'division/division_view.html')

@@ -6,6 +6,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.signals import post_save
 from PIL import Image
+from django.contrib.auth.models import Group
 
 class CustomUserManager(BaseUserManager):
 	def create_user(self, email, password=None, **extra_fields):
@@ -36,10 +37,13 @@ class CustomUserManager(BaseUserManager):
 		"""
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
+		extra_fields.setdefault('is_manager', True)
 		extra_fields.setdefault('is_active', True)
 
 		if extra_fields.get('is_staff') is not True:
 			raise ValueError(_('Superuser must have is_staff=True.'))
+		if extra_fields.get('is_manager') is not True:
+			raise ValueError(_('Superuser must have is_manager=True.'))
 		if extra_fields.get('is_superuser') is not True:
 			raise ValueError(_('Superuser must have is_superuser=True.'))
 		return self.create_user(email, password, **extra_fields)
@@ -56,6 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	is_superuser = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=False)
+	is_manager = models.BooleanField(default=False)
 	# notice the absence of a "Password field", that is built in.
 	name = models.CharField(max_length=50, null=True)
 	dob = models.DateField(null=True, blank=True)
@@ -69,6 +74,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []  # Email & Password are required by default.
+
+	def ismanager(self):
+		return self.is_manager
 
 	def __str__(self):              # __unicode__ on Python 2
 		return self.email

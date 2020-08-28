@@ -40,7 +40,7 @@
                 {% if user.is_authenticated %}
                     <div class="navbar-nav ml-auto">
                     <a href="{% url 'home'%}" class="nav-item nav-link active"><i class="fa fa-home"></i><span>{% trans "Home"%}</span></a>
-                    <a href="{% url 'about_us' %}" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>{% trans "Notifications"%}</span></a>
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
@@ -50,15 +50,15 @@
                         <div class="dropdown-menu">
                             <a href="{% url 'profile' %}" class="dropdown-item"><i class="fa fa-user-o"></i> {% trans "Profile"%}</a>
                             <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> {% trans "Calendar"%}</a>
-                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> {% trans "Settings"%}</a>
+                            <a href="{% url 'profile_update'%}" class="dropdown-item"><i class="fa fa-sliders"></i> {% trans "Settings"%}</a>
                             <div class="divider dropdown-divider"></div>
                             <a href="{% url 'logout-user' %}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> {% trans "Logout"%}</a>
                         </div>
                     </div>
                 </div>
                 {% else %}
-                    <div class="col-md-6"></div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4">
                         <a href="{% url 'about_us' %}" class="btn btn-light btn-lg btn-block active" role="button" aria-pressed="true">About Us</a>
                         <a href="{% url 'login-user' %}" class="btn btn-danger btn-lg btn-block active" role="button" aria-pressed="true">Login</a>
                     </div>
@@ -98,7 +98,7 @@
                         </a>
                         <!-- Submenu content -->
                         <div id='submenu2' class="collapse sidebar-submenu">
-                            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="{% url 'profile_update'%}" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="menu-collapsed">{% trans "Settings" %}</span>
                             </a>
                             <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
@@ -113,7 +113,7 @@
                         </a>
                         <!-- Separator with title -->
                         <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                            <strong>{% trans "STAFF FORMS" %}</strong>
+                            <strong>{% trans "EMPLOYEE FORMS" %}</strong>
                         </li>
                         <!-- /END Separator -->
                         <a href="#" class="bg-dark list-group-item list-group-item-action">
@@ -128,7 +128,7 @@
                                 <span class="menu-collapsed">{% trans "Request form" %}</span>
                             </div>
                         </a>
-                        {% if user.is_staff %}
+                        {% if user.ismanager %}
                         <!-- Separator without title -->
                             <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
                                 <strong>{% trans "MANAGEMENT" %}</strong>
@@ -146,16 +146,18 @@
                                     <span class="menu-collapsed">{% trans "Employee's request" %}</span>
                                 </div>
                             </a>
-                            <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
-                                <strong>{% trans "ADMIN" %}</strong>
-                            </li>
-                            <!-- /END Separator -->
-                            <a href="{% url 'register' %}" class="bg-dark list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-start align-items-center">
-                                    <span class="fas fa-users-cog fa-fw mr-3"></span>
-                                    <span class="menu-collapsed">{% trans "Admin register site" %}</span>
-                                </div>
-                            </a>
+                            {% if user.is_staff %}
+                                <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                                    <strong>{% trans "ADMIN" %}</strong>
+                                </li>
+                                <!-- /END Separator -->
+                                <a href="{% url 'register' %}" class="bg-dark list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="fas fa-users-cog fa-fw mr-3"></span>
+                                        <span class="menu-collapsed">{% trans "Admin register site" %}</span>
+                                    </div>
+                                </a>
+                            {% endif %}
                         {% endif %}
                         <a href="#" data-toggle="sidebar-colapse"
                            class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
@@ -168,7 +170,6 @@
                 </div>
                 <!-- sidebar-container END -->
             {% endif %}
-
         {% endblock %}
         <div id= "content">
             {% block content %}{% endblock %}
@@ -206,6 +207,4 @@
 <script src="{% static '/js/sidebar.js' %}"></script>
 <script src="{% static '/js/navbar.js' %}"></script>
 {% block js %}{% endblock %}
-
-
 </html>
