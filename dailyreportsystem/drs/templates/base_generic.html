@@ -37,9 +37,10 @@
                         <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
                     </div>
                 </form>
-                <div class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <div class="navbar-nav ml-auto">
                     <a href="{% url 'home'%}" class="nav-item nav-link active"><i class="fa fa-home"></i><span>{% trans "Home"%}</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>    	
+                    <a href="{% url 'about_us' %}" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>{% trans "Notifications"%}</span></a>
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
@@ -55,6 +56,13 @@
                         </div>
                     </div>
                 </div>
+                {% else %}
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3">
+                        <a href="{% url 'about_us' %}" class="btn btn-light btn-lg btn-block active" role="button" aria-pressed="true">About Us</a>
+                        <a href="{% url 'login-user' %}" class="btn btn-danger btn-lg btn-block active" role="button" aria-pressed="true">Login</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </nav>

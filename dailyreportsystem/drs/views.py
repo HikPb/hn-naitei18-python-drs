@@ -217,3 +217,7 @@ def activate(request, uidb64, token):
 		return HttpResponseRedirect(reverse('success_activation'))
 	else:
 		return HttpResponseRedirect(reverse('fail_activation'))
+
+
+def about_us(request):
+	return render(request, 'about_us.html')
