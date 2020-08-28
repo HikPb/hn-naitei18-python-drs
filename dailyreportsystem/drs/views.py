@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -51,7 +52,7 @@ def loginUser(request):
 
 	context = {
 	}
-	return render(request, 'login.html', context)
+	return render(request, '../templates/sign_up/login.html', context)
 
 
 def logoutUser(request):
@@ -166,20 +167,19 @@ def profile_update(request):
 	return render(request, 'profile/profile_update.html', context)
 
 def success_activation(request):
-	return render(request, 'sign_up/verification_success.html')
+	return render(request, '../templates/sign_up/verification_success.html')
 
 
 def fail_activation(request):
-	return render(request, 'sign_up/verification_fail.html')
+	return render(request, '../templates/sign_up/verification_fail.html')
 
 
 def inform(request):
-	return render(request, 'sign_up/inform_to_verify.html')
+	return render(request, '../templates/sign_up/inform_to_verify.html')
 
 
+@staff_member_required
 def register(request):
-	if request.method == 'GET':
-		return render(request, 'login.html')
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
 		if form.is_valid():
@@ -187,7 +187,7 @@ def register(request):
 			user.save()
 			current_site = get_current_site(request)
 			mail_subject = 'Activate your account.'
-			message = render_to_string('sign_up/acc_active_email.html', {
+			message = render_to_string('../templates/sign_up/acc_active_email.html', {
 				'user': user,
 				'domain': current_site.domain,
 				'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -202,7 +202,7 @@ def register(request):
 			return HttpResponseRedirect(reverse('inform'))
 	else:
 		form = SignUpForm()
-	return render(request, 'sign_up/register.html', {'form': form})
+	return render(request, '../templates/sign_up/register.html', {'form': form})
 
 
 def activate(request, uidb64, token):
