@@ -8,8 +8,7 @@
             <span aria-hidden="true">×</span></button><br>
           <h2 class="panel-title text-center">{%trans 'Request information'%}</h2>
         </div>
-        <form id="approval" method="POST">
-            {% csrf_token %}
+        <form id="approval">
             <div class="modal-body">
                 <div>
                     <span>Approval: </span>
@@ -22,9 +21,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" style="float: left;" data-dismiss="modal">
-                    {%trans 'Close'%}
-                </button>
+                <button type="button" class="btn btn-danger" style="float: left;" data-dismiss="modal">{%trans 'Close'%}</button>
                 <button class="btn btn-success" style="float: right;" type="submit">{%trans 'Update'%}</button>
             </div>
         </form>

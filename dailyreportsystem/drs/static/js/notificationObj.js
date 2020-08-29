@@ -1,10 +1,13 @@
+const csrftoken = Cookies.get('csrftoken');
 class NotificationObj{
     constructor(notificationObj){
       this.notificationObj = notificationObj
+      this.fromnow = moment(notificationObj.created_at).fromNow()
+
     }
     newRequestForm(){
       var reminder = `
-        <a class="dropdown-item d-flex align-items-center" href="{% url 'all_requests'%}">
+        <a class="dropdown-item d-flex align-items-center" href="/drs/requestforms">
           <div class="mr-3">
             <div class="icon-circle bg-primary">
               <i class="fas fa-file-alt text-white"></i>
@@ -12,7 +15,7 @@ class NotificationObj{
           </div>
           <div>
             <div class="small text-gray-500">
-            moment(${this.notificationObj.created_at}).format('HH:mm DD-MM-YYYY')
+            ${this.fromnow}
             </div>
             ${this.notificationObj.body}
           </div>
@@ -22,7 +25,7 @@ class NotificationObj{
     }
     responseRequest(){
       var reminder = `
-        <a class="dropdown-item d-flex align-items-center" href="{% url 'my_forms'%}">
+        <a class="dropdown-item d-flex align-items-center" href="/drs/myforms/>
           <div class="mr-3">
             <div class="icon-circle bg-success">
               <i class="fas fa-donate text-white"></i>
@@ -30,7 +33,7 @@ class NotificationObj{
           </div>
           <div>
             <div class="small text-gray-500">
-            moment(${this.notificationObj.created_at}).format('HH:mm DD-MM-YYYY')
+            ${this.fromnow}
             </div>
             ${this.notificationObj.body}
           </div>
@@ -40,7 +43,7 @@ class NotificationObj{
     }
     newReport(){
       var reminder = `
-        <a class="dropdown-item d-flex align-items-center" href="{% url 'manager_reports%}">
+        <a class="dropdown-item d-flex align-items-center" href="/drs/requestforms">
           <div class="mr-3">
             <div class="icon-circle bg-warning">
               <i class="fas fa-exclamation-triangle text-white"></i>
@@ -48,7 +51,7 @@ class NotificationObj{
           </div>
           <div>
           <div class="small text-gray-500">
-          moment(${this.notificationObj.created_at}).format('HH:mm DD-MM-YYYY')
+          ${this.fromnow}
           </div>
           ${this.notificationObj.content}
           </div>
@@ -57,63 +60,55 @@ class NotificationObj{
       return reminder;
     }
     drawNotification(){
-      if (this.notificationObj.type == 'nr') return this.newRequestForm();
-      if (this.notificationObj.type == 'rr') return this.responseRequest();
+      if (this.notificationObj.type_notification == 'nr') return this.newRequestForm();
+      if (this.notificationObj.type_notification == 'rr') return this.responseRequest();
       return this.newReport();
     }
   }
 
-  $('#alertsDropdown').click(function(){
-    const tmpObjsHTML = $('#newNotifications').html()
-    $.ajax({
-      method:'post',
-      url:'{% url "AJAXMarkNotificationAsReaded" %}',
-      data:{
-        csrfmiddlewaretoken:'{{csrf_token}}'
-      },
-      success:function(data){
-        $('#newNotifications').html('')
-        $('#cheat').html(tmpObjsHTML)
-        $('#newNotificationCount').text(data.unreaded_notification_count)
-      },
-      error:function(data){
-        console.log('ERR',data)
-      }
-    })
+function loadNotifications(){
+  $.ajax({
+    method:'get',
+    url:'/drs/ajax/get_notification_info',
+    data:{},
+    success: function(data){
+      var old_notifications = JSON.parse(data.old_notifications);
+      var unreaded_notifications = JSON.parse(data.unreaded_notifications);
+      var unreaded_notification_count = data.unreaded_notification_count;
+      
+      $('#newNotifications').html('')
+      unreaded_notifications.forEach(element => {
+        var obj = new NotificationObj(element.fields)
+        $('#newNotifications').append(obj.drawNotification())
+      });
+      $('#newNotificationCount').text(unreaded_notification_count)
+      console.log('loaded')
+    },
+    error: function(data){
+      console.log('ERR',data)
+    }
   })
+}
 
-  var ws = new WebSocket( 'ws://' + window.location.host + '/ws/notification/')
+$('#alertsDropdown').click(function(){
+  const tmpObjsHTML = $('#newNotifications').html()
+  $.ajax({
+    method:'post',
+    url:"/drs/ajax/mark_notification_as_readed",
+    data:{
+      csrfmiddlewaretoken: csrftoken,
+    },
+    success:function(data){
+      $('#newNotifications').html('')
+      $('#cheat').html(tmpObjsHTML)
+    },
+    error:function(data){
+      console.log('ERR',data)
+    }
+  })
+})
 
-  ws.onopen = function(event){
-    console.log('opened', event);
-  }
 
-  ws.onmessage = function(event){
-    console.log('message', event);
-    var data = JSON.parse(event.data);
-    
-    var old_notifications = JSON.parse(data.old_notifications);
-    var unreaded_notifications = JSON.parse(data.unreaded_notifications);
-    var unreaded_notification_count = data.unreaded_notification_count;
-
-    $('#newNotifications').html('')
-    unreaded_notifications.forEach(element => {
-      var obj = new NotificationObj(element.fields)
-      $('#newNotifications').append(obj.drawNotification())
-    });
-
-    $('#newNotificationCount').text(unreaded_notification_count)
-    console.log('loaded')
-  }
-
-  ws.onclose = function(event){
-    console.log('close', event);
-  }
-
-  ws.onerror = function(event){
-    console.log('error', event);
-  }
-
-  // window.setInterval(function(){
-  //   loadNotifications();
-  // }, 1000);
+window.setInterval(function(){
+  loadNotifications();
+}, 1000);

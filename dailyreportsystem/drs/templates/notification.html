@@ -1,30 +1,29 @@
 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fas fa-bell fa-fw"></i>
-    <!-- Counter - Alerts -->
-    <span class="badge badge-danger badge-counter" id="newNotificationCount">
-      0
-    </span>
-  </a>
-  <!-- Dropdown - Alerts -->
-  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-    <h6 class="dropdown-header">
-      Alerts Center
-    </h6>
-    <span id="newNotifications">
-    </span>
-    <span id="cheat">
-    </span>
-    {% for old_notification in old_notifications %}
-    <a class="dropdown-item text-center small text-gray-500" href="#">
-      <b>{{old_notification.get_group_display}}</b><br/>
-      {{old_notification.body}}
-    </a>
-    {% endfor %}
-  </div>
-  
-    {% load static %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  <i class="fas fa-bell fa-fw"></i>
+  <!-- Counter - Alerts -->
+  <span class="badge badge-danger badge-counter" id="newNotificationCount">
+    0
+  </span>
+</a>
+<!-- Dropdown - Alerts -->
+<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+  <h6 class="dropdown-header">
+    Alerts Center
+  </h6>
+  <span id="newNotifications">
+  </span>
+  <span id="cheat">
+  </span>
+  <span id="oldNotifications">
+  </span>
+</div>
+
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
-    <script src="{% static 'js/notificationObj.js' %}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" 
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" 
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="{% static 'js/notificationObj.js' %}"></script>

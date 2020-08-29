@@ -1,12 +1,3 @@
 {% load i18n %}
-
-{% autoescape off %}
-<h1>To: {{ user.name }}</h1>
-{% endautoescape %}
-
-<h2>{% trans 'WelcomeHeading' %}</h2>
-<p>{% trans 'WelcomeMessage' %}</p>
-<p>{% trans 'thanks' %}</p>
-{% autoescape off %}
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
-{% endautoescape %}
+<h2>{% trans 'You have new notification!!!' %}</h2>
+<h3>{% trans 'Please check now: '%} {{ noti_title }}</h3>

@@ -16,16 +16,16 @@ from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from .serializers import FormSerializer, ReportSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 UserModel = get_user_model()
-
 
 def index(request):
 	"""View function for home page of site."""
@@ -37,6 +37,13 @@ def index(request):
 		'email': email,
 	}
 	return render(request, 'index.html', context=context)
+
+def about_us(request):
+	return render(request, 'about_us.html')
+
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Login/logout view
+#-----------------------------------------------------------------------------------------------------------------------------------------
 
 def loginUser(request):
 	if request.user.is_authenticated:
@@ -87,14 +94,11 @@ def changepassword(request):
 	form = PasswordChangeForm(request.user)
 	return render(request, '../templates/sign_up/password_reset_form.html', {'form': form})
 
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Request form view
+#-----------------------------------------------------------------------------------------------------------------------------------------
 
-class FormDetailView(generic.DetailView):
-	"""Generic class-based detail view for a book."""
-	model = Form
-	template_name = "formrequest/form_detail.html"
-
-
-def getMyForms(request):
+def getMyForms(request): 
 	return render(request, 'formrequest/list_form_request_employee.html')
 
 
@@ -156,30 +160,29 @@ class FormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 			return True
 		return False
 
-
-class FormDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-	model = Form
-	template_name = 'formrequest/form_confirm_delete.html'
-	success_url = reverse_lazy('my_forms')
-	def test_func(self):
-		if self.get_object().status == 'p':
-			return True
-		return False
-
-class ManagerChangeForm(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-	model = Form
-	template_name = 'formrequest/approval_manager.html'
-	fields = ('status',)
-	success_url = reverse_lazy('all_requests')
-	def test_func(self):
-		if (self.get_object().status != 'r') and (self.get_object().status != 'a') and (self.get_object().receiver == self.request.user):
-			return True
-		return False
+@login_required
+@csrf_exempt
+def form_delete(request, pk):
+	form = get_object_or_404(Form, pk=pk)
+	data = dict()
+	if request.method == 'POST':
+		form.delete()
+		data['form_is_valid'] = True
+		return JsonResponse(data)
 
 @login_required
-def profile(request):
-	return render(request, 'profile/profile.html')
-
+@csrf_exempt
+def manager_update(request, pk):
+	form = get_object_or_404(Form, pk=pk)
+	if (form.status != 'r') and (form.status != 'a') and (form.receiver == request.user) and (request.method == 'POST'):
+		form.status = request.POST['status']
+		form.save()
+		return JsonResponse({'status':'Success', 'msg': 'Update successfully'})
+	else: 
+		return JsonResponse({'status':'Fail', 'msg':'Not a valid request'})
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Report view
+#-----------------------------------------------------------------------------------------------------------------------------------------
 
 def getListReport(request):
 	return render(request, 'report/list_report.html')
@@ -243,15 +246,24 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 		return False
 
 
-class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-	model = Report
-	template_name = 'report/report_confirm_delete.html'
-	success_url = reverse_lazy('reports')
-	def test_func(self):
-		# if self.get_object().sender == self.request.user:
-		# 	return True
-		# return False
-		return True
+@login_required
+@csrf_exempt
+def report_delete(request, pk):
+	report = get_object_or_404(Report, pk=pk)
+	data = dict()
+	if request.method == 'POST':
+		report.delete()
+		data['form_is_valid'] = True
+		return JsonResponse(data)
+
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Profile view
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+@login_required
+def profile(request):
+	return render(request, 'profile/profile.html')
+
 def profiletUser(request):
 	return render(request, 'profile.html')
 
@@ -274,9 +286,11 @@ def profile_update(request):
 		'u_form': u_form,
 		'p_form': p_form
 	}
-
-
 	return render(request, 'profile/profile_update.html', context)
+
+#-----------------------------------------------------------------------------------------------------------------------------------------
+# Active account view
+#-----------------------------------------------------------------------------------------------------------------------------------------
 
 def success_activation(request):
 	return render(request, '../templates/sign_up/verification_success.html')
@@ -330,18 +344,27 @@ def activate(request, uidb64, token):
 	else:
 		return HttpResponseRedirect(reverse('fail_activation'))
 
-def about_us(request):
-	return render(request, 'about_us.html')
-
 def division_view(request):
 	return render(request, 'division/division_view.html')
 
-def notifications_as_read(request):
-	Notification.objects.all()
-	return JsonResponse({
-		'status': True,
-		'message': "Marked all notifications as read"
-    })
+def get_notification_info(request):
+	if not request.user.is_authenticated:
+		context = {
+			'unreaded_notification_count':'',
+			'unreaded_notifications':'',
+			'old_notifications':''
+		}
+		return JsonResponse(context)
+	
+	notifications = Notification.objects.filter(receiver=request.user).order_by('-created_at')
+	old_notifications = notifications.filter(is_read=True)
+	unreaded_notifications = notifications.filter(is_read=False).order_by('-created_at')
+	context = {
+        'unreaded_notification_count':unreaded_notifications.count(),
+        'unreaded_notifications':serializers.serialize('json',unreaded_notifications[:5]),
+        'old_notifications':serializers.serialize('json',old_notifications[:3])
+    }
+	return JsonResponse(context)
 
 def mark_notification_as_readed(request):
     if not request.method == 'POST':
