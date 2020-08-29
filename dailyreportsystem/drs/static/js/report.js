@@ -44,7 +44,7 @@ $(document).ready(
                     'targets': [4, 5],
                     'render': function(data, type, full, meta){
                         if(type === 'display'){
-                            data = strtrunc(data, 30);
+                            data = strtrunc(data, 60);
                         }
                     return data;
                     }
