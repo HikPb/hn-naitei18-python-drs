@@ -1,4 +1,4 @@
-from .models import CustomUserManager, User, Form, Report, Notification, Skill, Position, Division, TimeKeeping
+from .models import CustomUserManager, User, Form, Report, Notification, Skill, Position, Division, Timeline
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
@@ -16,6 +16,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from .serializers import FormSerializer, ReportSerializer
@@ -24,24 +25,24 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-
 import xlwt
 import xlsxwriter
 from datetime import datetime
-from openpyxl.styles import colors
-from openpyxl.styles import Font
+from django.db.models.functions import ExtractDay
+import json
 UserModel = get_user_model()
 
 def index(request):
 	"""View function for home page of site."""
 	if not request.user.is_authenticated:
 		return redirect(reverse_lazy('login-user'))
-	email = request.user
-	# Generate counts of some of the main objects
-	context = {
-		'email': email,
-	}
-	return render(request, 'index.html', context=context)
+	# email = request.user
+	# # Generate counts of some of the main objects
+	# context = {
+	# 	'email': email,
+	# }
+	# return render(request, 'index.html', context=context)
+	return redirect(reverse_lazy('timeline'))
 
 def about_us(request):
 	return render(request, 'about_us.html')
@@ -630,3 +631,84 @@ def export_forms_xls(request):
 	wb.save(response)
 
 	return response
+from django.core.paginator import Paginator, InvalidPage
+def timeline_pagination(request):
+    # Pull the data
+	object_list = Timeline.objects.filter(user_id=request.user).order_by("-created_at")
+	timeline = []
+	if object_list.count()>0:
+		new_dic = {
+				"date": object_list[0].created_at.strftime('%d-%m-%Y'),
+				"events": [],
+			}
+		for ob in object_list:
+			if ob.created_at.strftime('%d-%m-%Y') == new_dic["date"]:
+				new_dic["events"].append({
+					"time": ob.created_at.strftime('%H:%M'),
+					"event": ob.event,
+					"content": ob.content,
+				})
+			else:
+				timeline.append(new_dic)
+				new_dic = {
+					"date": ob.created_at.strftime('%d-%m-%Y'),
+					"events": [],
+				}
+				new_dic["events"].append({
+					"time": ob.created_at.strftime('%H:%M'),
+					"event": ob.event,
+					"content": ob.content,
+				})
+		timeline.append(new_dic)
+	# Grab the first page of 100 items
+	paginator = Paginator(timeline, 3)
+	page_obj = paginator.page(1)
+    # Pass out the data
+	context = {
+        "object_list": page_obj.object_list,
+        "page": page_obj,
+    }
+	template = 'timeline.html'
+	return render(request, template, context)
+
+def timeline_pagination_json(request, page):
+    # Pull the data
+	object_list = Timeline.objects.filter(user_id=request.user).order_by("-created_at")
+	timeline = []
+	if object_list.count()>0:
+		new_dic = {
+				"date": object_list[0].created_at.strftime('%d-%m-%Y'),
+				"events": [],
+			}
+		for ob in object_list:
+			if ob.created_at.strftime('%d-%m-%Y') == new_dic["date"]:
+				new_dic["events"].append({
+					"time": ob.created_at.strftime('%H:%M'),
+					"event": ob.event,
+					"content": ob.content,
+				})
+			else:
+				timeline.append(new_dic)
+				new_dic = {
+					"date": ob.created_at.strftime('%d-%m-%Y'),
+					"events": [],
+				}
+				new_dic["events"].append({
+					"time": ob.created_at.strftime('%H:%M'),
+					"event": ob.event,
+					"content": ob.content,
+				})
+		timeline.append(new_dic)
+	paginator = Paginator(timeline, 3)
+	try:
+		page_obj = paginator.page(page)
+	except InvalidPage:
+        # Return 404 if the page doesn't exist
+		raise Http404
+    # Pass out the data
+	context = {
+        "object_list": page_obj.object_list,
+        "page": page,
+		"hasNext": page_obj.has_next()
+    }
+	return JsonResponse(context)

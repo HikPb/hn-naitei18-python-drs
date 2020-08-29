@@ -15,6 +15,7 @@ urlpatterns = [
     path('report/create/', views.ReportCreateView.as_view(), name='report_create'),
     path('report/<int:pk>/update/', views.ReportUpdateView.as_view(), name='report_update'),
     path('report/<int:pk>/delete/', views.report_delete, name='report_delete'),
+    path('timeline/', views.timeline_pagination, name='timeline'),
     path('register/', views.register, name='register'),
     path('register/inform/', views.inform, name='inform'),
     path('register/success_activation/', views.success_activation, name='success_activation'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('change-password/', views.changepassword, name='changepassword'),
     path('ajax/get_notification_info', views.get_notification_info, name='AJAXGetNotificationInfo'),
     path('ajax/mark_notification_as_readed', views.mark_notification_as_readed, name='AJAXMarkNotificationAsReaded'),
+    url('ajax/timeline/(?P<page>[0-9]+)/', views.timeline_pagination_json, name='timeline_json')
 ]
