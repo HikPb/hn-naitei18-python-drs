@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 from django.utils.translation import ugettext_lazy as _
 from decouple import config
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_datatables', 
     'crispy_forms',
+    # 'channels', 
     'drs',
 
 ]
@@ -81,7 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dailyreportsystem.wsgi.application'
-
+# ASGI_APPLICATION = 'dailyreportsystem.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -171,3 +173,21 @@ REST_FRAMEWORK = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'arert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+# Channels
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }

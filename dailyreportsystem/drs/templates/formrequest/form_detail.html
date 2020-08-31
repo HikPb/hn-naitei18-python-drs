@@ -1,5 +1,6 @@
 
-{% block content %}
+{% extends "list_form_request_employee.html" %}
+{% block detail %}
 <div class="modal_show_details"><div class="modal show-request in" style="display: block; padding-right: 23px;">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -19,52 +20,44 @@
           <tbody>
             <tr>
               <td>Staff Code</td>
-              <td>N120099</td>
+              <td>{{form.sender}}</td>
             </tr>
             <tr>
               <td>Employee name</td>
-              <td>Pham Ngoc Ba</td>
+              <td>{{form.sender.name}}</td>
             </tr>
             <tr>
-              <td>Company</td>
-              <td>Sun-asterisk</td>
+              <td>Division</td>
+              <td>{{form.division}}</td>
             </tr>
             <tr>
-              <td>Workspace</td>
-              <td>Handico Office</td>
+              <td>Position</td>
+              <td>{{form.sender.position}}</td>
             </tr>
             <tr>
-              <td>Department</td>
-              <td>Ruby members</td>
-            </tr>
-            <tr>
-              <td>
-                  Time request
-              </td>
-              <td>
-                07:45 - 07:51
-        08/25/2020
-              </td>
+              <td>Time request</td>
+              <td>{{form.created_at}}</td>
             </tr>
             <tr>
               <td>Reason</td>
-              <td><p class="line-infomation">Em bị kẹt xe, thang máy  đông.</p></td>
+              <td><p class="line-infomation">{{form.content}}</p></td>
             </tr>
-              <tr>
-                <td>Time compensation</td>
-                <td>
-                  16:45 - 16:51
-        08/25/2020
-                </td>
-              </tr>
+            <tr>
+              <td>Time compensation</td>
+              <td>{{form.compensation_from}}</td>
+            </tr>
+            <tr>
+              <td>Time compensation</td>
+              <td>{{form.compensation_to}}</td>
+            </tr>
             <tr>
               <td>Type</td>
-              <td>In late (M)</td>
+              <td>{{form.form_type}}</td>
             </tr>
             <tr>
               <td>Status</td>
               <td>
-                  <span class="label label-default">Forwarded</span>
+                  <span class="label label-success">{{form.status}}</span>
               </td>
             </tr>
           </tbody>

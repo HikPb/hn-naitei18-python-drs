@@ -160,6 +160,7 @@ body {
 	}
 	.navbar .navbar-nav {
 		margin: 8px 0;
+		float: right;
 	}
 	.navbar .navbar-toggle {
 		margin-right: 0;
