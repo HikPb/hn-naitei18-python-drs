@@ -126,7 +126,7 @@
                             <strong>{% trans "EMPLOYEE FORMS" %}</strong>
                         </li>
                         <!-- /END Separator -->
-                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                        <a href="{% url 'reports' %}" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="s-icon fab fa-wpforms fa-fw mr-3"></span>
                                 <span class="menu-collapsed">{% trans "Report" %}</span>
@@ -144,7 +144,7 @@
                                 <strong>{% trans "MANAGEMENT" %}</strong>
                             </li>
                             <!-- /END Separator -->
-                            <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <a href="{% url 'manager_reports' %}" class="bg-dark list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-start align-items-center">
                                     <span class="s-icon fas fa-file-invoice fa-fw mr-3"></span>
                                     <span class="menu-collapsed">{% trans "Employee's report" %}</span>

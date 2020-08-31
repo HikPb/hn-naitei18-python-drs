@@ -143,26 +143,25 @@ class Form(models.Model):
 
 
 class Report(models.Model):
-	"""dsfas"""
-	# Fields
-	sender = models.ForeignKey('User', on_delete=models.CASCADE, related_name='sender_report')
-	receiver = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='receiver_report')
-	created_at = models.DateTimeField(null=True, blank=True)
-	division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
-	plan = models.TextField(max_length=1000)
-	actual = models.TextField(max_length=1000)
-	next = models.TextField(max_length=1000)
-	issue = models.TextField(max_length=1000, null=True)
-
-	# Methods
-	def get_absolute_url(self):
-		"""Returns the url to access a particular instance of MyModelName."""
-		return reverse('report', args=[str(self.id)])
-
-	def __str__(self):
-		"""String for representing the MyModelName object (in Admin site etc.)."""
-		return self.plan
-
+    '''  dsfas '''
+    # Fields
+    sender = models.ForeignKey('User', on_delete=models.CASCADE, related_name='sender_report')
+    receiver = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='receiver_report')
+    created_at = models.DateTimeField(null=True, blank=True)
+    division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
+    plan = models.CharField(max_length=100)
+    actual = models.TextField(max_length=1000)
+    next = models.TextField(max_length=1000)
+    issue = models.TextField(max_length=1000, null=True, blank=True)
+    
+    # Methods
+    def get_absolute_url(self):
+        """Returns the url to access a particular instance of MyModelName."""
+        return reverse('report', args=[str(self.id)])
+    
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return self.plan
 
 class Notification(models.Model):
 	""" Notification """

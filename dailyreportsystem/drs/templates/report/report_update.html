@@ -1,0 +1,110 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+<head>
+	<title>{% trans "Update report" %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css" integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ==" crossorigin="anonymous" />	
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" />  
+  <link rel="stylesheet" type="text/css" href="{% static 'css/report.css' %}">
+</head>
+
+<div class="container-contact100">
+  <div class="wrap-contact100">
+    <form class="contact100-form validate-form" method="POST" action="">
+      {% csrf_token %}
+      <span class="contact100-form-title">
+        Update report
+      </span>
+      <table class="table table-borderless report-create">
+        <tbody>
+        <tr>
+          <td class="report-info" style="width:100px;" data-validate="Reason is required">
+            {% trans "Sender :" %}
+          </td>
+          <td>
+            <input type="text" value="{{request.user.name}}" disabled="disabled"
+                   style="width:300px;">
+          </td>
+        </tr>
+        <tr>
+          <td class="report-info" style="width:100px;">
+            {% trans "Receiver :" %}
+          </td>
+          <td>
+            <input type="text" value="{{request.user.manager}}" disabled="disabled"
+                   style="width:300px;">
+          </td>
+        </tr>
+        <tr>
+          <td class="report-info" style="width:100px;">
+            {% trans "Division :" %}
+          </td>
+          <td>
+            <input type="text" value="{{request.user.division}}" disabled="disabled"
+                   style="width:300px;">
+          </td>
+        </tr>
+        <tr>
+          <td class="report-info" style="width:150px;padding-top: 20px;">
+            {% trans "Date created :" %}
+          </td>
+          <td>
+            <input class="form-control" type="date" style="width:300px;">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <span class="required">{% trans "Plan " %}</span>
+      <span>
+        <textarea class="form-control" name="plan" rows="2" style="margin-bottom: 20px;" required>{{report.plan}}</textarea>
+      </span>
+      <span class="required">{% trans "Actual " %}</span>
+      <span>
+        <textarea class="form-control" name="actual" rows="2" style="margin-bottom: 20px;" required>{{report.actual}}</textarea>
+      </span>
+      <span class="required">{% trans "Issue " %}</span>
+      <span>
+        <textarea class="form-control" name="issue" rows="2" style="margin-bottom: 20px;" required>{{report.issue}}</textarea>
+      </span>
+      <span class="required">{% trans "Tomorrow " %}</span>
+      <span>
+        <textarea class="form-control" name="next" rows="2" style="margin-bottom: 20px;" required>{{report.next}}</textarea>
+      </span>
+      <button class="report-filter-btn btn btn-info btn-sm btn-oval" type="button" onclick="tai_lai_trang()"
+              style="margin-right: 200px;">
+        <a href="{% url 'reports' %}">
+          <i class="fa fa-rotate-left"></i>Cancel
+        </a>
+      </button>
+      <button class="button-create report-create-btn btn btn-sm btn-oval" type="submit" value="Submit"
+              id="button-create">
+        <i class="fas fa-pen"></i>
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+<div id="dropDownSelect1"></div>
+{% endblock %}
+
+{% block js%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js" 
+        integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ==" 
+        crossorigin="anonymous"></script>
+<script>
+  $(".selection-2").select2({
+    minimumResultsForSearch: 10,
+    dropdownParent: $('#dropDownSelect1')
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" 
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" 
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous"></script>
+<script src="{% static 'js/report.js' %}"></script>
+{% endblock %}

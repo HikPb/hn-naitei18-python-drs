@@ -19,7 +19,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
-from .serializers import FormSerializer
+from .serializers import FormSerializer, ReportSerializer
 from rest_framework import viewsets
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -180,6 +180,80 @@ class ManagerChangeForm(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 @login_required
 def profile(request):
 	return render(request, 'profile/profile.html')
+
+
+def getListReport(request):
+	return render(request, 'report/list_report.html')
+
+
+def getListReportManager(request):
+	return render(request, 'report/manager_list_report.html')
+
+
+class ListReport(viewsets.ModelViewSet):
+	serializer_class = ReportSerializer
+
+	def get_queryset(self):
+		return Report.objects.filter(sender=self.request.user)
+
+
+class ListReportManager(viewsets.ModelViewSet):
+	serializer_class = ReportSerializer
+
+	def get_queryset(self):
+		return Report.objects.filter(receiver=self.request.user)
+
+class ReportCreateView(LoginRequiredMixin, CreateView):
+	model = Report
+	login_url = 'login-user'
+	redirect_field_name = 'redirect_to'
+	template_name = 'report/report_create.html'
+	fields = ('plan', 'actual', 'issue', 'next')
+	success_url = reverse_lazy('reports')
+
+	def form_valid(self, report):
+		if self.request.user.is_authenticated:
+			report.instance.sender = self.request.user
+			report.instance.receiver = self.request.user.manager
+			report.instance.division = self.request.user.division
+			report.instance.created_at = timezone.now()
+		return super(ReportCreateView, self).form_valid(report)
+
+	def form_invalid(self, form):
+		"""If the form is invalid, render the invalid form."""
+		return redirect(reverse_lazy('report_create'))
+
+	def post(self, request, *args, **kwargs):
+		report = self.get_form()
+		self.object = None
+		if report.is_valid():
+			return self.form_valid(report)
+		else:
+			return self.form_invalid(report)
+
+class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model = Report
+	template_name = 'report/report_update.html'
+	fields = ('plan', 'actual', 'issue', 'next')
+	success_url = reverse_lazy('reports')
+
+	def test_func(self):
+		if self.get_object().sender == self.request.user:
+			return True
+		return False
+
+
+class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model = Report
+	template_name = 'report/report_confirm_delete.html'
+	success_url = reverse_lazy('reports')
+	def test_func(self):
+		# if self.get_object().sender == self.request.user:
+		# 	return True
+		# return False
+		return True
+def profiletUser(request):
+	return render(request, 'profile.html')
 
 @login_required
 def profile_update(request):
