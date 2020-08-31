@@ -1,6 +1,7 @@
 from .models import CustomUserManager, User, Form, Report, Notification, Skill, Position, Division, TimeKeeping
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.admin.views.decorators import staff_member_required
@@ -63,6 +64,29 @@ def logoutUser(request):
 	logout(request)
 	messages.success(request, _('You are logged out'))
 	return redirect('login-user')
+
+
+def changepassword(request):
+	if not request.user.is_authenticated:
+		return redirect('/')
+	'''
+	Please work on me -> success & error messages & style templates
+	'''
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save(commit=True)
+			update_session_auth_hash(request, user)
+
+			messages.success(request, 'Password changed successfully',
+							 extra_tags='alert alert-success alert-dismissible show')
+			return redirect('changepassword')
+		else:
+			messages.error(request, 'Error,changing password', extra_tags='alert alert-warning alert-dismissible show')
+			return redirect('changepassword')
+
+	form = PasswordChangeForm(request.user)
+	return render(request, '../templates/sign_up/password_reset_form.html', {'form': form})
 
 
 class FormDetailView(generic.DetailView):

@@ -70,6 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
 	position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True, blank=True)
 	sex =  models.CharField(max_length=50, null=True, blank=True)
+
 	# profile = models.ImageField(de)
 
 	USERNAME_FIELD = 'email'
