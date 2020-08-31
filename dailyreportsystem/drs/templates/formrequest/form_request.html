@@ -7,13 +7,9 @@
 	<title>{% trans "Request form" %}</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css" integrity="sha512-SagM1PHxt5mWDyWARVY6UOdhM5A8J+R1UqIWcGfiwOd+be7uHQagB+JQOmfVZF8jjJQqbyuWzw/KXfb4yqjBkQ==" crossorigin="anonymous" />	
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
 </head>
 
@@ -24,8 +20,8 @@
       <span class="contact100-form-title">
         Request form
       </span>
-      <div class="wrap-input100">
-        <span class="label-input100">{% trans "Title" %}</span>
+      <div class="wrap-input100 validate-input" data-validate = "Reason is required">
+        <span class="required label-input100">{% trans "Title" %}</span>
         <input class="input100" type="text" name="title" placeholder="Enter form title">
         <span class="focus-input90"></span>
       </div>
@@ -56,7 +52,7 @@
         </div>
       </div>
 
-      <div class="wrap-input100 input100-select">
+      <div class="wrap-input100 input100-select validate-form" data-validate = "Form type is required">
         <span class="label-input100">Form type</span>
         <div>
           <select id="selection" class="selection-2" name="form_type">
@@ -70,23 +66,23 @@
 
       <div id="select1" class="group-select wrap-input50 validate-input" data-validate = "Require datetime">
         <span class="required label-input100">{% trans "Checkin time" %}</span>
-        <input class="input100" type="datetime" name="checkin_time" placeholder="Enter your checkin time...">
+        <input class="input100" id="checkin" type="datetime" name="checkin_time" placeholder="Enter your checkin time...">
         <span class="focus-input100"></span>
       </div>
       <div id="select2" class="group-select wrap-input50 validate-input" data-validate = "Require datetime">
         <span class="required label-input100">{% trans "Checkout time" %}</span>
-        <input class="input100" type="datetime" name="checkout_time" placeholder="Enter your checkout time...">
+        <input class="input100" id="checkout" type="datetime" name="checkout_time" placeholder="Enter your checkout time...">
         <span class="focus-input100"></span>
       </div>
       <div id="select3" class="group-select" style="display: flex;">
         <div class="wrap-input50 validate-input" data-validate = "Require datetime">
           <span class="required label-input100">{% trans "Leave from" %}</span>
-          <input class="input100" type="datetime" name="leave_from" placeholder="Enter your leave from...">
+          <input class="input100" id="leavefrom" type="datetime" name="leave_from" placeholder="Enter your leave from...">
           <span class="focus-input100"></span>
         </div>
         <div class="wrap-input50 validate-input" data-validate = "Require datetime">
           <span class="required label-input100">{% trans "Leave to" %}</span>
-          <input class="input100" type="text" name="leave_to" placeholder="Enter your leave to...">
+          <input class="input100" id="leaveto" type="datetime" name="leave_to" placeholder="Enter your leave to...">
           <span class="focus-input100"></span>
         </div>
       </div>
@@ -94,13 +90,13 @@
       <div class="d-flex">
         <div class="wrap-input50 validate-input" data-validate = "Require datetime">
           <span class="required label-input100">{% trans "Compensation from" %}</span>
-          <input class="input100" type="datetime" name="compensation_from" placeholder="Enter your compensation from...">
+          <input class="input100" id="com_from" type="datetime" name="compensation_from" placeholder="Enter your compensation from...">
           <span class="focus-input100"></span>
         </div>
 
         <div class="wrap-input50 validate-input" data-validate = "Require datetime">
           <span class="required label-input100">{% trans "Compensation to" %}</span>
-          <input class="input100" type="text" name="compensation_to" placeholder="Enter your compensation to..." >
+          <input class="input100" id="com_to" type="datetime" name="compensation_to" placeholder="Enter your compensation to..." >
           <span class="focus-input100"></span>
         </div>
       </div>
@@ -109,14 +105,15 @@
         <textarea class="input100" name="content" placeholder="Your reason here..." required></textarea>
         <span class="focus-input100"></span>
       </div>
-      <div class="container-contact100-form-btn">
-        <div class="wrap-contact100-form-btn">
-          <div class="contact100-form-bgbtn"></div>
-          <button class="contact100-form-btn">
-            <span>
-              Submit
-              <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-            </span>
+      <div class="d-flex">
+        <div class="wrap-contact20-form-btn-red">
+          <a href="{% url 'my_forms'%}" class="btn" style="color: white; width: 100%;">
+            Cancel
+          </a>
+        </div>
+        <div class="wrap-contact20-form-btn-green">
+          <button class="btn" style="color: white; width: 100%;" type="submit">
+            <span>Ok</span>
           </button>
         </div>
       </div>
@@ -127,17 +124,8 @@
 {% endblock %}
 
 {% block js%}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js" 
         integrity="sha512-pYd2QwnzV9JgtoARJf1Ui1q5+p1WHpeAz/M0sUJNprhDviO4zRo12GLlk4/sKBRUCtMHEmjgqo5zcrn8pkdhmQ==" 
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
-        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous"></script>
 <script>
   $(".selection-2").select2({
@@ -148,11 +136,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" 
         integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" 
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js" integrity="sha512-eUQ9hGdLjBjY3F41CScH3UX+4JDSI9zXeroz7hJ+RteoCaY+GP/LDoM8AO+Pt+DRFw3nXqsjh9Zsts8hnYv8/A==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous"></script>
 <script type="text/javascript">
-  $("#date1").datetimepicker();
+  $("#checkin").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
+  $("#checkout").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
+  $("#leavefrom").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
+  $("#leaveto").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
+  $("#com_from").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
+  $("#com_to").datetimepicker({
+    format:'Y-m-d H:m:s',
+    });
 </script>
-<script src="{% static 'js/countdowntime.js'%}"></script>
 <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

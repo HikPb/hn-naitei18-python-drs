@@ -6,7 +6,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -38,6 +39,8 @@ def index(request):
 
 
 def loginUser(request):
+	if request.user.is_authenticated:
+		return redirect(reverse_lazy('home'))
 	if request.method == 'POST':
 		email = request.POST.get('email')
 		password = request.POST.get('password')
@@ -46,6 +49,7 @@ def loginUser(request):
 
 		if user is not None:
 			login(request, user)
+			messages.success(request, _('You are logged in sucessfully!!!'))
 			return redirect('home')
 		else:
 			messages.info(request, _('username or password is incorrect'))
@@ -57,6 +61,7 @@ def loginUser(request):
 
 def logoutUser(request):
 	logout(request)
+	messages.success(request, _('You are logged out'))
 	return redirect('login-user')
 
 
@@ -71,18 +76,18 @@ def getMyForms(request):
 
 
 def getFormRequest(request):
-	return render(request, 'formrequest/list_form_request_employee.html')
-
-
+    return render(request, 'formrequest/list_form_request_manager.html')
+    
 class MyForms(viewsets.ModelViewSet):
-	queryset = Form.objects.all()
+    # queryset = Form.objects.filter(form_type="il")
 	serializer_class = FormSerializer
-
+	def get_queryset(self):
+		return Form.objects.filter(sender=self.request.user)
 
 class FormRequest(viewsets.ModelViewSet):
-	queryset = Form.objects.filter(status='p').order_by('created_at')
 	serializer_class = FormSerializer
-
+	def get_queryset(self):
+		return Form.objects.filter(receiver=self.request.user)
 
 class FormCreateView(LoginRequiredMixin, CreateView):
 	login_url = 'login-user'
@@ -131,14 +136,22 @@ class FormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class FormDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	model = Form
-	success_url = '/'
 	template_name = 'formrequest/form_confirm_delete.html'
-
+	success_url = reverse_lazy('my_forms')
 	def test_func(self):
 		if self.get_object().status == 'p':
 			return True
 		return False
 
+class ManagerChangeForm(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model = Form
+	template_name = 'formrequest/approval_manager.html'
+	fields = ('status',)
+	success_url = reverse_lazy('all_requests')
+	def test_func(self):
+		if (self.get_object().status != 'r') and (self.get_object().status != 'a') and (self.get_object().receiver == self.request.user):
+			return True
+		return False
 
 @login_required
 def profile(request):
@@ -218,10 +231,15 @@ def activate(request, uidb64, token):
 	else:
 		return HttpResponseRedirect(reverse('fail_activation'))
 
-
 def about_us(request):
 	return render(request, 'about_us.html')
 
-
 def division_view(request):
 	return render(request, 'division/division_view.html')
+
+def notifications_as_read(request):
+	Notification.objects.all()
+	return JsonResponse({
+		'status': True,
+		'message': "Marked all notifications as read"
+    })

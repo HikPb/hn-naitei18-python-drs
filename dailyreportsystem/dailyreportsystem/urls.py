@@ -25,8 +25,8 @@ from django.conf.urls.static import static
 from drs import views
 
 router = routers.DefaultRouter()
-router.register(r'myforms', views.MyForms)
-router.register(r'allrequests', views.FormRequest)
+router.register(r'myforms', views.MyForms, basename='form_user_view')
+router.register(r'allrequests', views.FormRequest, basename='form_manager_view')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

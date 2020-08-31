@@ -8,6 +8,7 @@ urlpatterns = [
     path('requestform/<int:pk>/', views.FormDetailView.as_view(), name='form_detail'),
     path('requestform/create/', views.FormCreateView.as_view(), name='form_create'),
     path('requestform/<int:pk>/update/', views.FormUpdateView.as_view(), name='form_update'),
+    path('allforms/<int:pk>/update/', views.ManagerChangeForm.as_view(), name='manager_change_form'),
     path('requestform/<int:pk>/delete/', views.FormDeleteView.as_view(), name='form_delete'),
     path('register/', views.register, name='register'),
     path('register/inform/', views.inform, name='inform'),
@@ -17,4 +18,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile_update/', views.profile_update, name='profile_update'),
     path('division_view/', views.division_view, name='division_view'),
+    path('notifications-as-read', views.notifications_as_read, name="notifications-as-read"),
 ]
