@@ -63,16 +63,18 @@
   
     /*==================================================================
     [ Validate ]*/
-    var name = $('.validate-input input[name="name"]');
-    var email = $('.validate-input input[name="email"]');
-    var message = $('.validate-input textarea[name="message"]');
+    var title = $('.validate-input input[name="title"]');
+    var com_time1 = $('.validate-input input[name="compensation_from"]');
+    var com_time2 = $('.validate-input input[name="compensation_to"]');
+    var type = $('.validate-input select[name="compensation_from"]');
+    var message = $('.validate-input textarea[name="content"]');
 
 
     $('.validate-form').on('submit',function(){
         var check = true;
 
-        if($(name).val().trim() == ''){
-            showValidate(name);
+        if($(title).val().trim() == ''){
+            showValidate(title);
             check=false;
         }
 
@@ -81,9 +83,21 @@
             showValidate(email);
             check=false;
         }
+        if($(com_time1).val().trim() == ''){
+            showValidate(input);
+            check=false;
+        }
+        if($(com_time2).val().trim() == ''){
+            showValidate(input);
+            check=false;
+        }
+        if($(type).val().trim() == ''){
+            showValidate(input);
+            check=false;
+        }
 
         if($(message).val().trim() == ''){
-            showValidate(message);
+            showValidate(input);
             check=false;
         }
 
