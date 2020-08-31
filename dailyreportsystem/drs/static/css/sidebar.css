@@ -4,19 +4,20 @@
 body{
     margin-bottom: 50px;
 }
-#sidebar-container {
+#sidebar-container{
     flex-grow: 0;
+    display: inline-block;
     min-height: 100%;
     background-color: #626262;
     padding: 0;
     max-height: 100%;
-    position: sticky;
-    top: 70px
+    /* position: sticky;
+    top: 70px */
     /* flex: unset; */
 }
 
 .sidebar-expanded {
-    width: 340px;
+    width: 320px;
 }
 
 .sidebar-collapsed {
@@ -72,8 +73,8 @@ a.bg-dark {
 }
 
 #content{
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: 70%;
     height: 100vh;
     flex-grow: 1;
     flex-shrink: 0.8;

@@ -28,18 +28,9 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
-
 #login{
   flex-grow: 1;
-}
-
-body, html {
-  height: 100%;
+  width: 100%;
 	font-family: Poppins-Regular, sans-serif;
 }
 
