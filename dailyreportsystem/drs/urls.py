@@ -19,4 +19,5 @@ urlpatterns = [
     path('profile_update/', views.profile_update, name='profile_update'),
     path('division_view/', views.division_view, name='division_view'),
     path('notifications-as-read', views.notifications_as_read, name="notifications-as-read"),
+    path('change-password/',views.changepassword,name='changepassword'),
 ]
