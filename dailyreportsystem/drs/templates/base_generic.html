@@ -48,7 +48,7 @@
                             <span id="form-notifications">0</span>
                         </a>
                         <div class="dropdown-menu" id="notification-menu">
-                                <a href="#" title="" class="dropdown-item">view more</a>
+                                <a href="#" title="" class="dropdown-item">{% trans "view more"%}</a>
                                 <a href="#" title="" class="dropdown-item" data-url="{% url 'notifications-as-read' %}" id="notifications-as-read">{%trans 'Mark all as read'%}</a>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                 {% else %}
                     <div class="col-md-3"></div>
                     <div class="col-md-4">
-                        <a href="{% url 'about_us' %}" class="btn btn-light btn-lg btn-block active" role="button" aria-pressed="true">About Us</a>
-                        <a href="{% url 'login-user' %}" class="btn btn-danger btn-lg btn-block active" role="button" aria-pressed="true">Login</a>
+                        <a href="{% url 'about_us' %}" class="btn btn-light btn-lg btn-block active" role="button" aria-pressed="true">{% trans "About Us"%}</a>
+                        <a href="{% url 'login-user' %}" class="btn btn-danger btn-lg btn-block active" role="button" aria-pressed="true">{% trans "Login"%}</a>
                     </div>
                 {% endif %}
             </div>

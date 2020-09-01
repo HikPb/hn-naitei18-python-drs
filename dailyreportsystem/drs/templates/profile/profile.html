@@ -34,20 +34,20 @@
                         <div class="row list-separated profile-stat">
                         <div class="col-md-4 col-sm-4 col-xs-6">
 {#                            <div class="uppercase profile-stat-title"> 37 </div>#}
-                            <div class="uppercase profile-stat-text"> Reports </div>
+                            <div class="uppercase profile-stat-text"> {% trans "Reports"%} </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-6">
 {#                            <div class="uppercase profile-stat-title"> 51 </div>#}
-                            <div class="uppercase profile-stat-text"> Tasks </div>
+                            <div class="uppercase profile-stat-text"> {% trans "Tasks"%} </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-6">
 {#                            <div class="uppercase profile-stat-title"> 61 </div>#}
-                            <div class="uppercase profile-stat-text"> Requests </div>
+                            <div class="uppercase profile-stat-text"> {% trans "Requests"%} </div>
                         </div>
                     </div>
                     <!-- END STAT -->
                         <div>
-                            <h4 class="profile-desc-title">Daily Report System</h4>
+                            <h4 class="profile-desc-title">{% trans "Daily Report System"%}</h4>
                             <span class="profile-desc-text"> afterFIT Family </span>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-globe"></i>
@@ -70,7 +70,7 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                Personal Information
+                                {% trans "Personal Information"%}
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -78,14 +78,14 @@
                                 <div class=" col-md-12 col-lg-12 ">
                                     <div class="panel-group">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading">Basic Information</div>
+                                            <div class="panel-heading">{% trans "Basic Information"%}</div>
                                             <div class="panel-body">
                                                 <table class="table table-hover">
                                                     <tbody>
                                                     <tr>
                                                         <td class="col-md-pull-3">
                                                             <strong>
-                                                                <i class="fa fa-user-o"></i> Name
+                                                                <i class="fa fa-user-o"></i> {% trans "Name"%}
                                                             </strong>
                                                         </td>
                                                         <td style="text-align: right">{{ user.name }}</td>
@@ -93,7 +93,7 @@
                                                     <tr>
                                                         <td class="col-md-pull-3">
                                                             <strong>
-                                                                <i class="fa fa-envelope-o"></i> Email
+                                                                <i class="fa fa-envelope-o"></i> {% trans "Email"%}
                                                             </strong>
                                                         </td>
                                                         <td style="text-align: right">{{ user.email }}</td>
@@ -101,7 +101,7 @@
                                                     <tr>
                                                         <td class="col-md-pull-3">
                                                             <strong>
-                                                                <i class="fa fa-transgender"></i> Sex
+                                                                <i class="fa fa-transgender"></i> {% trans "Sex"%}
                                                             </strong>
                                                         </td>
                                                         <td style="text-align: right">{{ user.sex }}</td>
@@ -109,7 +109,7 @@
                                                     <tr>
                                                         <td class="col-md-pull-3">
                                                             <strong>
-                                                                <i class="fa fa-birthday-cake"></i> DOB
+                                                                <i class="fa fa-birthday-cake"></i> {% trans "DOB"%}
                                                             </strong>
                                                         </td>
                                                         <td style="text-align: right">{{ user.dob}}</td>
@@ -117,7 +117,7 @@
                                                     <tr>
                                                         <td class="col-md-pull-3">
                                                             <strong>
-                                                                <i class="fa fa-phone"></i> Phone number
+                                                                <i class="fa fa-phone"></i> {% trans "Phone number"%}
                                                             </strong>
                                                         </td>
                                                         <td style="text-align: right">{{ user.phone }}</td>
@@ -129,7 +129,7 @@
                                                 <div class="panel-heading">
                                                     <ul class="nav nav-tabs">
                                                         <li class="active">
-                                                            <a data-toggle="tab" href="#working-infor">Working information</a>
+                                                            <a data-toggle="tab" href="#working-infor">{% trans "Working information"%}</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -151,7 +151,7 @@
                                                                 <tr>
                                                                     <td class="col-md-pull-3">
                                                                         <strong>
-                                                                            <i class="fa fa-address-card"></i> Skill
+                                                                            <i class="fa fa-address-card"></i> {% trans "Skill"%}
                                                                         </strong>
                                                                     </td>
                                                                     <td style="text-align: right">{{ user.skill.all|join:", " }}</td>
@@ -159,7 +159,7 @@
                                                                 <tr>
                                                                     <td class="col-md-pull-3">
                                                                         <strong>
-                                                                            <i class="fa fa-address-card-o"></i> Manager name
+                                                                            <i class="fa fa-address-card-o"></i> {% trans "Manager name"%}
                                                                         </strong>
                                                                     </td>
                                                                     <td style="text-align: right">{{ user.manager }}</td>
@@ -167,7 +167,7 @@
                                                                 <tr>
                                                                     <td class="col-md-pull-3">
                                                                         <strong>
-                                                                            <i class="fa fa-address-card"></i> Position
+                                                                            <i class="fa fa-address-card"></i> {% trans "Position"%}
                                                                         </strong>
                                                                     </td>
                                                                     <td style="text-align: right">{{ user.position}}</td>
@@ -175,7 +175,7 @@
                                                                 <tr>
                                                                     <td class="col-md-pull-3">
                                                                         <strong>
-                                                                            <i class="fa fa-home"></i> Division
+                                                                            <i class="fa fa-home"></i> {% trans "Division"%}
                                                                         </strong>
                                                                     </td>
                                                                     <td style="text-align: right">

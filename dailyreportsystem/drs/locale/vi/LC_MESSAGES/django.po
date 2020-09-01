@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-19 14:54+0700\n"
+"POT-Creation-Date: 2020-09-01 02:22+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,42 +17,647 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-#: drs/models.py:28 drs/models.py:40
+
+#: models.py:31 models.py:44
 msgid "Superuser must have is_staff=True."
 msgstr ""
 
-#: drs/models.py:42
+#: models.py:46
+msgid "Superuser must have is_manager=True."
+msgstr ""
+
+#: models.py:48
 msgid "Superuser must have is_superuser=True."
 msgstr ""
 
-#: drs/templates/login.html:6
-msgid "Login Page"
+#: templates/about_us.html:14
+msgid "WHAT DRIVES US "
+msgstr "điều gì thúc đẩy chúng tôi"
+
+#: templates/about_us.html:19
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed libero "
+"vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut "
+"fermentum lobortis. Sed quis iaculis felis. "
 msgstr ""
 
-#: drs/templates/login.html:33
-msgid "Member login"
+#: templates/about_us.html:30
+msgid "LOREM IPSUM"
 msgstr ""
 
-#: drs/templates/login.html:35
-msgid "Valid email is required: ex@abc.xyz"
+#: templates/about_us.html:31
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 msgstr ""
 
-#: drs/templates/login.html:43
-msgid "Password is required"
+#: templates/about_us.html:37
+msgid "DOLOR SIT AMET"
 msgstr ""
 
-#: drs/templates/login.html:54
+#: templates/about_us.html:38
+msgid "Praesent sed libero vel ex maximus vulputate nec eu ligula."
+msgstr ""
+
+#: templates/about_us.html:44
+msgid "SED TRISTIQUE"
+msgstr ""
+
+#: templates/about_us.html:45
+msgid "Vestibulum elementum nisi ut fermentum lobortis."
+msgstr ""
+
+#: templates/about_us.html:53
+msgid "SEMPER IPSUM"
+msgstr ""
+
+#: templates/about_us.html:54
+msgid "Nullam bibendum felis non laoreet rutrum."
+msgstr ""
+
+#: templates/about_us.html:60
+msgid "NEC MATTIS"
+msgstr ""
+
+#: templates/about_us.html:61
+msgid "Etiam diam mi, lacinia eu sapien in, dapibus sodales erat."
+msgstr ""
+
+#: templates/about_us.html:67
+msgid "CRAS MOLLIS"
+msgstr ""
+
+#: templates/about_us.html:68
+msgid "Etiam varius porttitor tellus et aliquet."
+msgstr ""
+
+#: templates/about_us.html:79
+msgid "CUSTOMERS"
+msgstr ""
+
+#: templates/about_us.html:80
+msgid "Trusted by some of the world’s leading brands."
+msgstr ""
+
+#: templates/about_us.html:81
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed libero "
+"vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut "
+"fermentum lobortis. Sed quis iaculis felis."
+msgstr ""
+
+#: templates/base_generic.html:6 templates/profile/profile.html:50
+msgid "Daily Report System"
+msgstr "Hệ thống quản lý báo cáo"
+
+#: templates/base_generic.html:42 templates/index.html:4
+msgid "Home"
+msgstr "Trang chủ"
+
+#: templates/base_generic.html:43
+msgid "About"
+msgstr ""
+
+#: templates/base_generic.html:47
+msgid "Notifications"
+msgstr "Thông báo"
+
+#: templates/base_generic.html:51
+msgid "view more"
+msgstr "Nhiều hơn"
+
+#: templates/base_generic.html:52
+msgid "Mark all as read"
+msgstr "Đánh dấu tất cả như đã đọc"
+
+#: templates/base_generic.html:61 templates/base_generic.html:105
+msgid "Profile"
+msgstr "Hồ sơ"
+
+#: templates/base_generic.html:62
+msgid "Calendar"
+msgstr "Lịch"
+
+#: templates/base_generic.html:63 templates/base_generic.html:112
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: templates/base_generic.html:65
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: templates/base_generic.html:72
+msgid "About Us"
+msgstr "Về chúng tôi"
+
+#: templates/base_generic.html:73
 msgid "Login"
+msgstr "Đăng nhập"
+
+#: templates/base_generic.html:89
+msgid "MAIN MENU"
+msgstr "Mục lục"
+
+#: templates/base_generic.html:97
+msgid "Working calendar"
+msgstr "Lịch làm việc"
+
+#: templates/base_generic.html:115
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: templates/base_generic.html:121 templates/profile/profile.html:41
+msgid "Tasks"
+msgstr "Nghiệm vụ"
+
+#: templates/base_generic.html:126
+msgid "EMPLOYEE FORMS"
+msgstr "Nhân viên"
+
+#: templates/base_generic.html:132 templates/report/report_create.html:9
+msgid "Report"
+msgstr "Báo cáo"
+
+#: templates/base_generic.html:138 templates/formrequest/form_request.html:7
+#: templates/formrequest/update_form_request.html:7
+#: templates/formrequest/update_form_request.html:21
+msgid "Request form"
+msgstr "Biểu mẫu"
+
+#: templates/base_generic.html:144
+msgid "MANAGEMENT"
+msgstr "Quản lý"
+
+#: templates/base_generic.html:150
+msgid "Employee's report"
+msgstr "Báo cáo của nhân viên"
+
+#: templates/base_generic.html:156
+msgid "Employee's request"
+msgstr "Yêu cầu của nhân viên"
+
+#: templates/base_generic.html:161
+msgid "ADMIN"
+msgstr "ADMIN"
+
+#: templates/base_generic.html:167
+msgid "Admin register site"
+msgstr "Trang đăng ký quản trị viên"
+
+#: templates/base_generic.html:176
+msgid "Collapse"
+msgstr "Thu gọn"
+
+#: templates/division/division_view.html:13
+msgid "OUR TEAM"
+msgstr "ĐỘI NGŨ CỦA CHÚNG TÔI"
+
+#: templates/division/division_view.html:23
+#: templates/division/division_view.html:32
+#: templates/division/division_view.html:72
+#: templates/division/division_view.html:81
+#: templates/division/division_view.html:121
+#: templates/division/division_view.html:130
+#: templates/division/division_view.html:170
+#: templates/division/division_view.html:179
+#: templates/division/division_view.html:219
+#: templates/division/division_view.html:228
+#: templates/division/division_view.html:268
+#: templates/division/division_view.html:277
+msgid "Sunlimetech"
+msgstr "Sunlimetech"
+
+#: templates/division/division_view.html:220
+#: templates/division/division_view.html:269
+msgid "This is basic card with image on top, title, description and button."
+msgstr "Đây là thẻ cơ bản với hình ảnh ở trên cùng, tiêu đề, mô tả và nút."
+
+#: templates/formrequest/approval_manager.html:9
+#: templates/formrequest/form_detail.html:11
+#: templates/formrequest/list_form_request_employee.html:46
+#: templates/formrequest/list_form_request_manager.html:46
+msgid "Request information"
+msgstr "Yêu cầu thông tin"
+
+#: templates/formrequest/approval_manager.html:17
+msgid "Approve"
+msgstr "Phê duyệt"
+
+#: templates/formrequest/approval_manager.html:18
+#: templates/formrequest/form_confirm_delete.html:17
+#: templates/formrequest/form_request.html:111
+#: templates/formrequest/update_form_request.html:112
+#: templates/report/report_confirm_delete.html:13
+msgid "Cancel"
+msgstr "Hủy"
+
+#: templates/formrequest/approval_manager.html:19
+msgid "Forward"
+msgstr "Chuyển tiếp"
+
+#: templates/formrequest/approval_manager.html:20
+msgid "Reject"
+msgstr "Từ chối"
+
+#: templates/formrequest/approval_manager.html:26
+#: templates/formrequest/list_form_request_employee.html:66
+#: templates/formrequest/list_form_request_manager.html:65
+#: templates/report/list_report.html:57
+#: templates/report/manager_list_report.html:57
+msgid "Close"
+msgstr "Đóng"
+
+#: templates/formrequest/approval_manager.html:28
+#: templates/profile/profile_update.html:26
+msgid "Update"
+msgstr "Cập nhật"
+
+#: templates/formrequest/form_confirm_delete.html:10
+msgid "Are you sure?"
+msgstr "Bạn có chắc chắn không?"
+
+#: templates/formrequest/form_confirm_delete.html:14
+#: templates/report/report_confirm_delete.html:10
+msgid ""
+"Do you really want to delete these records? This process cannot be undone."
+msgstr "Bạn có thực sự muốn xóa các bản ghi này không? Không thể hoàn tác quá trình này."
+
+#: templates/formrequest/form_confirm_delete.html:20
+#: templates/report/report_confirm_delete.html:16
+msgid "Delete"
+msgstr "Xóa"
+
+#: templates/formrequest/form_detail.html:15
+#: templates/formrequest/list_form_request_employee.html:51
+#: templates/formrequest/list_form_request_manager.html:51
+msgid "Detail information"
+msgstr "Thông tin chi tiết"
+
+#: templates/formrequest/form_detail.html:22
+msgid "Staff Code"
+msgstr "Mã nhân viên"
+
+#: templates/formrequest/form_detail.html:26
+#: templates/formrequest/form_request.html:31
+#: templates/formrequest/update_form_request.html:31
+msgid "Employee name"
+msgstr "Tên nhân viên"
+
+#: templates/formrequest/form_detail.html:30
+#: templates/formrequest/form_request.html:49
+#: templates/formrequest/update_form_request.html:49
+#: templates/profile/profile.html:178
+msgid "Division"
+msgstr "Bộ phận"
+
+#: templates/formrequest/form_detail.html:34 templates/profile/profile.html:170
+msgid "Position"
+msgstr "Chức vụ"
+
+#: templates/formrequest/form_detail.html:38
+msgid "Time request"
+msgstr "Thời gian yêu cầu"
+
+#: templates/formrequest/form_detail.html:42
+#: templates/formrequest/form_request.html:104
+#: templates/formrequest/list_form_request_employee.html:27
+#: templates/formrequest/list_form_request_manager.html:27
+#: templates/formrequest/update_form_request.html:105
+msgid "Reason"
+msgstr "Lý do"
+
+#: templates/formrequest/form_detail.html:46
+#: templates/formrequest/form_detail.html:50
+msgid "Time compensation"
+msgstr "Thời gian bù"
+
+#: templates/formrequest/form_detail.html:54
+#: templates/formrequest/list_form_request_employee.html:19
+#: templates/formrequest/list_form_request_manager.html:19
+msgid "Type"
+msgstr "Loại"
+
+#: templates/formrequest/form_detail.html:58
+#: templates/formrequest/list_form_request_employee.html:28
+#: templates/formrequest/list_form_request_manager.html:28
+msgid "Status"
+msgstr "Trạng thái"
+
+#: templates/formrequest/form_request.html:24
+#: templates/formrequest/list_form_request_employee.html:18
+#: templates/formrequest/list_form_request_manager.html:18
+#: templates/formrequest/update_form_request.html:24
+msgid "Title"
+msgstr "Tiêu đề"
+
+#: templates/formrequest/form_request.html:36
+#: templates/formrequest/update_form_request.html:36
+msgid "Employee id"
+msgstr "Id nhân viên"
+
+#: templates/formrequest/form_request.html:44
+#: templates/formrequest/update_form_request.html:44
+msgid "Manager"
+msgstr "Quản lý"
+
+#: templates/formrequest/form_request.html:56
+msgid "Form type"
+msgstr "Loại Form"
+
+#: templates/formrequest/form_request.html:68
+#: templates/formrequest/update_form_request.html:69
+msgid "Checkin time"
+msgstr "Thời gian checkin"
+
+#: templates/formrequest/form_request.html:73
+#: templates/formrequest/update_form_request.html:74
+msgid "Checkout time"
+msgstr "Thời gian Checkout"
+
+#: templates/formrequest/form_request.html:79
+#: templates/formrequest/list_form_request_employee.html:23
+#: templates/formrequest/list_form_request_manager.html:23
+#: templates/formrequest/update_form_request.html:80
+msgid "Leave from"
+msgstr "Từ"
+
+#: templates/formrequest/form_request.html:84
+#: templates/formrequest/list_form_request_employee.html:24
+#: templates/formrequest/list_form_request_manager.html:24
+#: templates/formrequest/update_form_request.html:85
+msgid "Leave to"
+msgstr "Đến"
+
+#: templates/formrequest/form_request.html:92
+#: templates/formrequest/list_form_request_employee.html:25
+#: templates/formrequest/list_form_request_manager.html:25
+#: templates/formrequest/update_form_request.html:93
+msgid "Compensation from"
+msgstr "Thời gian bù từ"
+
+#: templates/formrequest/form_request.html:98
+#: templates/formrequest/list_form_request_employee.html:26
+#: templates/formrequest/list_form_request_manager.html:26
+#: templates/formrequest/update_form_request.html:99
+msgid "Compensation to"
+msgstr "Đến"
+
+#: templates/formrequest/form_request.html:116
+#: templates/formrequest/update_form_request.html:117
+msgid "Ok"
 msgstr ""
 
-#: drs/templates/login.html:60
-msgid "Forgot"
+#: templates/formrequest/list_form_request_employee.html:11
+msgid "List request IL, LE, LO, IL"
 msgstr ""
 
-#: drs/templates/login.html:63
-msgid "Username / Password?"
+#: templates/formrequest/list_form_request_employee.html:20
+#: templates/formrequest/list_form_request_manager.html:20
+msgid "Created"
+msgstr "Tạo"
+
+#: templates/formrequest/list_form_request_employee.html:21
+#: templates/formrequest/list_form_request_manager.html:21
+msgid "Checkin"
 msgstr ""
 
-#: drs/views.py:34
+#: templates/formrequest/list_form_request_employee.html:22
+#: templates/formrequest/list_form_request_manager.html:22
+msgid "Checkout"
+msgstr ""
+
+#: templates/formrequest/list_form_request_employee.html:29
+#: templates/formrequest/list_form_request_manager.html:29
+#: templates/report/list_report.html:18
+#: templates/report/manager_list_report.html:18
+msgid "Sender"
+msgstr "Người gửi"
+
+#: templates/formrequest/list_form_request_employee.html:30
+#: templates/formrequest/list_form_request_manager.html:30
+#: templates/report/list_report.html:24
+#: templates/report/manager_list_report.html:24
+msgid "Receiver"
+msgstr "Người nhận"
+
+#: templates/formrequest/list_form_request_employee.html:31
+#: templates/formrequest/list_form_request_manager.html:31
+#: templates/report/list_report.html:25
+#: templates/report/manager_list_report.html:25
+msgid "Action"
+msgstr "Hành động"
+
+#: templates/formrequest/list_form_request_manager.html:11
+msgid "Employee\\"
+msgstr "Nhân viên"
+
+#: templates/formrequest/update_form_request.html:57
+msgid "Type: "
+msgstr "Loại"
+
+#: templates/formrequest/update_form_request.html:62
+msgid "Status: "
+msgstr "Trạng thái"
+
+#: templates/index.html:5
+msgid "You are logged,"
+msgstr "Bạn đã đăng nhập thành công"
+
+#: templates/profile/profile.html:37
+msgid "Reports"
+msgstr "Báo cáo"
+
+#: templates/profile/profile.html:45
+msgid "Requests"
+msgstr "Yêu cầu"
+
+#: templates/profile/profile.html:73
+msgid "Personal Information"
+msgstr "Thông tin cá nhân"
+
+#: templates/profile/profile.html:81
+msgid "Basic Information"
+msgstr "Thông tin cơ bản"
+
+#: templates/profile/profile.html:88 templates/timeline.html:17
+#: templates/timeline.html:19
+msgid "Name"
+msgstr "Tên"
+
+#: templates/profile/profile.html:96
+msgid "Email"
+msgstr ""
+
+#: templates/profile/profile.html:104
+msgid "Sex"
+msgstr "Giới tính"
+
+#: templates/profile/profile.html:112
+msgid "DOB"
+msgstr "Sinh nhật"
+
+#: templates/profile/profile.html:120
+msgid "Phone number"
+msgstr "Số điện thoại"
+
+#: templates/profile/profile.html:132
+msgid "Working information"
+msgstr "Thông tin công việc"
+
+#: templates/profile/profile.html:154
+msgid "Skill"
+msgstr "Trình độ"
+
+#: templates/profile/profile.html:162
+msgid "Manager name"
+msgstr "Tên quản lý"
+
+#: templates/profile/profile_update.html:15
+msgid "Hello User"
+msgstr "Xin chào !!!"
+
+#: templates/profile/profile_update.html:21
+msgid "Profile Info"
+msgstr "Thông tin cá nhân"
+
+#: templates/report/list_report.html:11
+msgid "My report"
+msgstr "Báo cáo của tôi"
+
+#: templates/report/list_report.html:19
+#: templates/report/manager_list_report.html:19
+msgid "Created at"
+msgstr "Ngày tạo"
+
+#: templates/report/list_report.html:20
+#: templates/report/manager_list_report.html:20
+msgid "Plan"
+msgstr "Kế hoạch"
+
+#: templates/report/list_report.html:21
+#: templates/report/manager_list_report.html:21
+msgid "Actual"
+msgstr "Việc đã làm"
+
+#: templates/report/list_report.html:22
+#: templates/report/manager_list_report.html:22
+msgid "Issue"
+msgstr "Vấn đề"
+
+#: templates/report/list_report.html:23
+#: templates/report/manager_list_report.html:23
+msgid "Next"
+msgstr "Ngày mai"
+
+#: templates/report/list_report.html:40
+#: templates/report/manager_list_report.html:40
+msgid "Report information"
+msgstr "Thông tin báo cáo"
+
+#: templates/report/manager_list_report.html:11
+msgid "List report"
+msgstr "Danh sách report"
+
+#: templates/report/report_create.html:27
+msgid "Create Report"
+msgstr "Tạo báo cáo"
+
+#: templates/report/report_create.html:33
+#: templates/report/report_update.html:27
+msgid "Sender :"
+msgstr "Người gửi"
+
+#: templates/report/report_create.html:42
+#: templates/report/report_update.html:36
+msgid "Receiver :"
+msgstr "Người nhận"
+
+#: templates/report/report_create.html:51
+#: templates/report/report_update.html:45
+msgid "Division :"
+msgstr "Bộ phận"
+
+#: templates/report/report_create.html:60
+#: templates/report/report_update.html:54
+msgid "Date created :"
+msgstr "Ngày tạo"
+
+#: templates/report/report_create.html:68
+#: templates/report/report_update.html:62
+msgid "Plan "
+msgstr "Kế hoạch"
+
+#: templates/report/report_create.html:72
+#: templates/report/report_update.html:66
+msgid "Actual "
+msgstr "Việc đã làm"
+
+#: templates/report/report_create.html:76
+#: templates/report/report_update.html:70
+msgid "Issue "
+msgstr "Vấn đề"
+
+#: templates/report/report_create.html:80
+#: templates/report/report_update.html:74
+msgid "Tomorrow "
+msgstr "Ngày mai"
+
+#: templates/report/report_create.html:87
+#: templates/report/report_update.html:81
+msgid "Cancel "
+msgstr "Hủy"
+
+#: templates/report/report_create.html:93
+#: templates/report/report_update.html:87
+msgid "Save "
+msgstr "Lưu"
+
+#: templates/report/report_update.html:7 templates/report/report_update.html:21
+msgid "Update report"
+msgstr "Cập nhật báo cáo"
+
+#: templates/timeline.html:11
+msgid "Timesheet entry"
+msgstr ""
+
+#: templates/timeline.html:27
+msgid "Day"
+msgstr ""
+
+#: templates/timeline.html:28
+msgid "Date"
+msgstr ""
+
+#: templates/timeline.html:29
+msgid "Start Time"
+msgstr ""
+
+#: templates/timeline.html:30
+msgid "Finish Time"
+msgstr ""
+
+#: templates/timeline.html:31
+msgid "Break"
+msgstr ""
+
+#: templates/timeline.html:32
+msgid "Hours Worked"
+msgstr ""
+
+#: templates/timeline.html:40
+msgid "Submit"
+msgstr ""
+
+#: templates/timeline.html:43
+msgid "Total Hours Worked:"
+msgstr ""
+
+#: views.py:52
+msgid "You are logged in sucessfully!!!"
+msgstr "Bạn đã đăng nhập thành công !!!"
+
+#: views.py:55
 msgid "username or password is incorrect"
-msgstr ""
+msgstr "Tên đăng nhập hoặc tài khoản của bạn không chính xác"
+
+#: views.py:64
+msgid "You are logged out"
+msgstr "Bạn đã đăng xuất"

@@ -38,7 +38,6 @@ def index(request):
 	}
 	return render(request, 'index.html', context=context)
 
-
 def loginUser(request):
 	if request.user.is_authenticated:
 		return redirect(reverse_lazy('home'))
@@ -202,6 +201,7 @@ class ListReportManager(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		return Report.objects.filter(receiver=self.request.user)
+
 
 class ReportCreateView(LoginRequiredMixin, CreateView):
 	model = Report
