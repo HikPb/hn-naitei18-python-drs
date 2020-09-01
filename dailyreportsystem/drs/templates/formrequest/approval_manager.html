@@ -14,10 +14,10 @@
                 <div>
                     <span>Approval: </span>
                     <select name="status" class="selection-2">
-                        <option value="a">Approve</option>
-                        <option value="c">Cancel</option>
-                        <option value="f">Forward</option>
-                        <option value="r">Reject</option>
+                        <option value="a">{% trans "Approve" %}</option>
+                        <option value="c">{% trans "Cancel" %}</option>
+                        <option value="f">{% trans "Forward" %}</option>
+                        <option value="r">{% trans "Reject" %}</option>
                     </select>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <button type="button" class="btn btn-danger" style="float: left;" data-dismiss="modal">
                     {%trans 'Close'%}
                 </button>
-                <button class="btn btn-success" style="float: right;" type="submit">Update</button>
+                <button class="btn btn-success" style="float: right;" type="submit">{%trans 'Update'%}</button>
             </div>
         </form>
       </div>

@@ -1,4 +1,4 @@
-
+{% load i18n %}
 {% extends "list_form_request_employee.html" %}
 {% block detail %}
 <div class="modal_show_details"><div class="modal show-request in" style="display: block; padding-right: 23px;">
@@ -8,54 +8,54 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
-          <h2 class="panel-title text-center">Request information</h2>
+          <h2 class="panel-title text-center">{% trans 'Request information' %}</h2>
         </div>
         <div class="modal-body-show-request modal-body"><div class="panel panel-info">
     <div class="panel-heading">
-      <h3 class="panel-title">Detail information</h3>
+      <h3 class="panel-title">{% trans 'Detail information' %}</h3>
     </div>
     <div class="panel-body">
       <div class="row">
         <table class="table table-user-information">
           <tbody>
             <tr>
-              <td>Staff Code</td>
+              <td>{% trans 'Staff Code' %}</td>
               <td>{{form.sender}}</td>
             </tr>
             <tr>
-              <td>Employee name</td>
+              <td>{% trans 'Employee name' %}</td>
               <td>{{form.sender.name}}</td>
             </tr>
             <tr>
-              <td>Division</td>
+              <td>{% trans 'Division' %}</td>
               <td>{{form.division}}</td>
             </tr>
             <tr>
-              <td>Position</td>
+              <td>{% trans 'Position' %}</td>
               <td>{{form.sender.position}}</td>
             </tr>
             <tr>
-              <td>Time request</td>
+              <td>{% trans 'Time request' %}</td>
               <td>{{form.created_at}}</td>
             </tr>
             <tr>
-              <td>Reason</td>
+              <td>{% trans 'Reason' %}</td>
               <td><p class="line-infomation">{{form.content}}</p></td>
             </tr>
             <tr>
-              <td>Time compensation</td>
+              <td>{% trans 'Time compensation' %}</td>
               <td>{{form.compensation_from}}</td>
             </tr>
             <tr>
-              <td>Time compensation</td>
+              <td>{% trans 'Time compensation' %}</td>
               <td>{{form.compensation_to}}</td>
             </tr>
             <tr>
-              <td>Type</td>
+              <td>{% trans 'Type' %}</td>
               <td>{{form.form_type}}</td>
             </tr>
             <tr>
-              <td>Status</td>
+              <td>{% trans 'Status' %}</td>
               <td>
                   <span class="label label-success">{{form.status}}</span>
               </td>

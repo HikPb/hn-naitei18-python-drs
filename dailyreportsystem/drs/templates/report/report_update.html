@@ -18,7 +18,7 @@
     <form class="contact100-form validate-form" method="POST" action="">
       {% csrf_token %}
       <span class="contact100-form-title">
-        Update report
+        {% trans "Update report" %}
       </span>
       <table class="table table-borderless report-create">
         <tbody>
@@ -78,13 +78,13 @@
       <button class="report-filter-btn btn btn-info btn-sm btn-oval" type="button" onclick="tai_lai_trang()"
               style="margin-right: 200px;">
         <a href="{% url 'reports' %}">
-          <i class="fa fa-rotate-left"></i>Cancel
+          <i class="fa fa-rotate-left"></i>{% trans "Cancel " %}
         </a>
       </button>
       <button class="button-create report-create-btn btn btn-sm btn-oval" type="submit" value="Submit"
               id="button-create">
         <i class="fas fa-pen"></i>
-        Save
+        {% trans "Save " %}
       </button>
     </form>
   </div>

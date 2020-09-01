@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
+{% load i18n %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 {% block content %}
-    <h1>Home</h1>
-    <p>You are logged, {{email}}</p>
+    <h1>{% trans "Home" %}</h1>
+    <p>{% trans "You are logged," %} {{email}}</p>
 {% endblock %}
+
+

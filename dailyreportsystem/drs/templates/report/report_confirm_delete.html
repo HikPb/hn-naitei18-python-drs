@@ -1,3 +1,4 @@
+{% load i18n %}
 {% block content %}
 <div id="delete-confirm" class="modal fade">
     <div class="modal-dialog modal-confirm">
@@ -6,13 +7,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Do you really want to delete these records? This process cannot be undone.</p>
+                <p>{%trans 'Do you really want to delete these records? This process cannot be undone.'%}</p>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{%trans 'Cancel'%}</button>
                 <form id="delete" method="POST">
                     {% csrf_token %}
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger">{%trans 'Delete'%}</button>
                 </form>
             </div>
         </div>

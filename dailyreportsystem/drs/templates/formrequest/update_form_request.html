@@ -18,7 +18,7 @@
     <form class="contact100-form validate-form" method="POST" action="">
       {% csrf_token %}
       <span class="contact100-form-title">
-        Request form
+        {% trans "Request form" %}
       </span>
       <div class="wrap-input100">
         <span class="required label-input100">{% trans "Title" %}</span>
@@ -109,12 +109,12 @@
       <div class="d-flex">
         <div class="wrap-contact20-form-btn-red">
           <a href="{{ view.get_success_url }}" class="btn" style="color: white; width: 100%;">
-            Cancel
+            {% trans "Cancel"%}
           </a>
         </div>
         <div class="wrap-contact20-form-btn-green">
           <button class="btn" style="color: white; width: 100%;" type="submit">
-            <span>Ok</span>
+            <span>{% trans "Ok"%}</span>
           </button>
         </div>
       </div>
