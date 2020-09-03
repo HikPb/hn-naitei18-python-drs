@@ -7,6 +7,7 @@ $(document).ready(
         var table = $('#myforms').DataTable({
             "serverSide": true,
             "responsive": true,
+            "pageLength": 5,
             "ajax": {
                 "url": "/api/myforms/?format=datatables",
                 "type": "GET",
@@ -134,10 +135,6 @@ $(document).ready(
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
                         +"<tr>"
-                            +"<td>Division</td>"
-                            +"<td>"+data['division']+"</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Receiver</td>"
                             +"<td>"+data['receiver']['name']+"</td>"
                         +"</tr>"
@@ -180,10 +177,6 @@ $(document).ready(
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
                         +"<tr>"
-                            +"<td>Division</td>"
-                            +"<td>"+data['division']+"</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Receiver</td>"
                             +"<td>"+data['receiver']['name']+"</td>"
                         +"</tr>"
@@ -222,12 +215,8 @@ $(document).ready(
                             +"<td>P123425</td>"
                         +"</tr>"
                         +"<tr>"
-                            +"<td>{% trans 'Employee name'%}</td>"
+                            +"<td>Employee name</td>"
                             +"<td>"+data['sender']['name']+"</td>"
-                        +"</tr>"
-                        +"<tr>"
-                            +"<td>Division</td>"
-                            +"<td>"+data['division']+"</td>"
                         +"</tr>"
                         +"<tr>"
                             +"<td>Receiver</td>"

@@ -341,3 +341,16 @@ def notifications_as_read(request):
 		'status': True,
 		'message': "Marked all notifications as read"
     })
+
+def mark_notification_as_readed(request):
+    if not request.method == 'POST':
+        return JsonResponse({})
+    if not request.user.is_authenticated:
+        return JsonResponse({})
+    notifications = request.user.receiver
+    unreaded_notifications = notifications.filter(is_read=False)
+    for notification in unreaded_notifications.order_by('created_at'):
+        notification.is_read = True
+        notification.save()
+    return JsonResponse({'unreaded_notification_count':unreaded_notifications.count()})
+

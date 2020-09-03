@@ -9,15 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'name', 'email',
         )
         datatables_always_serialize = ('id',)
-
-class UserSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-    class Meta:
-        model = User
-        fields = (
-            'id', 'name', 'email',
-        )
-        datatables_always_serialize = ('id',)
 class FormSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     sender = UserSerializer()

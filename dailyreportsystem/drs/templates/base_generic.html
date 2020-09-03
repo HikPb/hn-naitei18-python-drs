@@ -40,8 +40,8 @@
                 {% if user.is_authenticated %}
                     <div class="navbar-nav ml-auto">
                     <a href="{% url 'home'%}" class="nav-item nav-link active"><i class="fa fa-home"></i><span>{% trans "Home"%}</span></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>    	
-                    <div class="dropdown">
+                    <a href="{% url 'about_us' %}" class="nav-item nav-link"><i class="fa fa-users"></i><span>{% trans "About"%}</span></a>    	
+                    <!-- <div class="dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
                             <i class="fa fa-bell"></i>
                             <span>{% trans "Notifications"%}</span>
@@ -51,7 +51,8 @@
                                 <a href="#" title="" class="dropdown-item">{% trans "view more"%}</a>
                                 <a href="#" title="" class="dropdown-item" data-url="{% url 'notifications-as-read' %}" id="notifications-as-read">{%trans 'Mark all as read'%}</a>
                         </div>
-                    </div>
+                    </div> -->
+                    {%include 'notification.html'%}
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
                             <img src="{{ user.profile.image.url }}" class="avatar" alt="Avatar"> {{email}}
@@ -217,7 +218,6 @@
         crossorigin="anonymous"></script>
 <script src="{% static '/js/sidebar.js' %}"></script>
 <script src="{% static '/js/navbar.js' %}"></script>
-<script src="{% static '/js/reconnecting-websocket.js' %}"></script>
-<script src="{% static '/js/notification.js' %}"></script>
+<!-- <script src="{% static '/js/notification.js' %}"></script> -->
 {% block js %}{% endblock %}
 </html>
