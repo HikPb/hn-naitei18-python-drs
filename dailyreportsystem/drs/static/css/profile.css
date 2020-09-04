@@ -190,3 +190,9 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
   margin-right: auto;
   width: 50%;
 }
+
+.btn-secondary{
+    text-color: #FFFFFF;
+    background-color: #5a6268;
+    border-color: #545b62;
+}

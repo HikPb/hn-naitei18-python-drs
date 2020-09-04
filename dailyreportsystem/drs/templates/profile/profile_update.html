@@ -5,32 +5,28 @@
 {% block title %}
     <title>Update User Profile</title>
 {% endblock %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/report.css' %}">
+</head>
 {% block content %}
-<div class="container">
-	<div class="main row">
-        <div class="col-3"></div>
-		<div class="col-6">
-            <div class="profile-update">
-                <div class="registration_center">
-                    <h2>{% trans "Hello User"%} {{ user.email }}</h2>
-                    <div class="profile-update-form">
-                        <div class="container">
-                            <form method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <fieldset class="form-group">
-                                    <legend class="border-bottom mb-4">{% trans "Profile Info"%}</legend>
-                                    {{ u_form | crispy}}
-                                    {{ p_form | crispy}}
-                                </fieldset>
-                                <div class="form-group">
-                                    <button class="btn btn-outline-info" type="submit">{% trans "Update"%}</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
+<div class="container-contact100" style="padding-left: 400px;" >
+    <div class="wrap-contact100">
+        <form class="contact100-form validate-form" method="POST" action="">
+            {% csrf_token %}
+            <h2>
+                    {% trans "Hello User"%} {{ user.email }}
+            </h2>
+            <fieldset class="contact100-form-title">
+                <legend class="border-bottom mb-4">{% trans "UPDATE PROFILE"%}</legend>
+                {{ u_form | crispy}}
+                {{ p_form | crispy}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">{% trans "Update"%}</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+
 {% endblock %}

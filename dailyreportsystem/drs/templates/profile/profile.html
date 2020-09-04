@@ -12,7 +12,7 @@
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        <img class="account-img" style="border-style: groove" src="{{ user.profile.image.url }}" alt="">
+                        <img class="account-img" style="imgborder-style: groove" src="{{ user.profile.image.url }}" alt="">
                     </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
@@ -202,6 +202,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <a class="btn btn-secondary" href="{% url 'profile_update' %}" role="button" >
+                                                <i class="fas fa-pen"></i>{% trans "  UPDATE" %}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
