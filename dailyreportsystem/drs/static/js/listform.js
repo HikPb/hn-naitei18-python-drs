@@ -30,7 +30,10 @@ $(document).ready(
                         return `<span style="font-size: 18px">Leave Early</span>`
                     }
                 }},
-                {"data": "created_at"},
+                {"data": "created_at",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
                 {"data": "checkin_time",
                 "visible": false,
                 "searchable": false,},
@@ -43,8 +46,14 @@ $(document).ready(
                 {"data": "leave_to",
                 "visible": false,
                 "searchable": false,},
-                {"data": "compensation_from"},
-                {"data": "compensation_to"},
+                {"data": "compensation_from",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
+                {"data": "compensation_to",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
                 {"data": "content"},
                 {"data": "status",
                 'render': function(data, type, row){
@@ -73,13 +82,13 @@ $(document).ready(
                 {"data": null, 
                 'render': function(data, type, row, meta){
                     if(data['status'] != 'p'){
-                        return '<button class="btn btn-info btn-detail" type="button">Detail</button>'
-                                + '<button class="btn btn-secondary btn-update" type="button" style="margin: 0px 3px;" disabled>Update</button>'
-                                + '<button class="btn btn-secondary btn-delete" type="button" disabled>Delete</button>'  
+                        return '<button class="btn btn-info btn-detail" type="button"><i class="fa fa-eye"></i></button>'
+                        + '<button class="btn btn-success btn-update" type="button" style="margin: 0px 3px;" disabled><i class="fa fa-edit"></i></button>'
+                        + '<button class="btn btn-danger btn-delete" type="button" disabled><i class="fa fa-trash"></i></button>'
                     }
-                    return '<button class="btn btn-info btn-detail" type="button">Detail</button>'
-                            + '<button class="btn btn-success btn-update" type="button" style="margin: 0px 3px;">Update</button>'
-                            + '<button class="btn btn-danger btn-delete" type="button">Delete</button>'
+                    return '<button class="btn btn-info btn-detail" type="button"><i class="fa fa-eye"></i></button>'
+                            + '<button class="btn btn-success btn-update" type="button" style="margin: 0px 3px;"><i class="fa fa-edit"></i></button>'
+                            + '<button class="btn btn-danger btn-delete" type="button"><i class="fa fa-trash"></i></button>'
                     }
                 },               
             ],
@@ -103,7 +112,6 @@ $(document).ready(
                 }
             ]
         });
-
         $('#myforms tbody').on( 'click', '.btn-detail', function () {
                 var data = table.row( $(this).parents('tr') ).data();
                 var temp;
@@ -127,10 +135,6 @@ $(document).ready(
                     $(".modal-body").find("#tb tbody")
                     .append(
                         "<tr>"
-                            +"<td>Staff Code</td>"
-                            +"<td>P123425</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Employee name</td>"
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
@@ -169,10 +173,6 @@ $(document).ready(
                     $(".modal-body").find("#tb tbody")
                     .append(
                         "<tr>"
-                            +"<td>Staff Code</td>"
-                            +"<td>P123425</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Employee name</td>"
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
@@ -211,10 +211,6 @@ $(document).ready(
                     $(".modal-body").find("#tb tbody")
                     .append(
                         "<tr>"
-                            +"<td>Staff Code</td>"
-                            +"<td>P123425</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Employee name</td>"
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
@@ -258,10 +254,20 @@ $(document).ready(
         } );
         $('#myforms tbody').on( 'click', '.btn-delete', function () {
             var data = table.row( $(this).parents('tr') ).data();
-            // action = "{% url 'form_delete' "+data['id']+"%}"
-
             action = "/drs/requestform/"+data['id']+"/delete/"
-            $('#delete').attr('action', action);
+            $('#delete').click(function(){
+                $.ajax({
+                    url: action,
+                    type: "POST",
+                    data: { 'pk' : data['id'] },
+                    success: function(data){
+                        if(data.form_is_valid){
+                            $("#delete-confirm").modal('hide')
+                            table.ajax.reload();
+                        }
+                    }       
+                });
+            })
             $("#delete-confirm").modal()
         } );
         $('body').on('hidden.bs.modal', '.modal', function () {

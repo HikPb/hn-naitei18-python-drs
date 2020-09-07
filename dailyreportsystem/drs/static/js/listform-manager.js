@@ -30,7 +30,10 @@ $(document).ready(
                         return `<span style="font-size: 18px">Leave Early</span>`
                     }
                 }},
-                {"data": "created_at"},
+                {"data": "created_at",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
                 {"data": "checkin_time",
                 "visible": false,
                 "searchable": false,},
@@ -43,8 +46,14 @@ $(document).ready(
                 {"data": "leave_to",
                 "visible": false,
                 "searchable": false,},
-                {"data": "compensation_from"},
-                {"data": "compensation_to"},
+                {"data": "compensation_from",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
+                {"data": "compensation_to",
+                "render": function(data, type, row){
+                    return moment(data).format('HH:mm DD-MM-YYYY')
+                }},
                 {"data": "content"},
                 {"data": "status",
                 'render': function(data, type, row){
@@ -73,11 +82,11 @@ $(document).ready(
                 {"data": null, 
                 'render': function(data, type, row, meta){
                     if(data['status'] == 'r' || data['status']== 'a'){
-                        return '<button class="btn btn-info btn-detail" type="button">Detail</button>'
-                                + '<button class="btn btn-secondary btn-approval" type="button" style="margin: 0px 3px;" disabled>Approval</button>'
+                        return '<button class="btn btn-info btn-detail" type="button"><i class="fa fa-eye"></i></button>'
+                                + '<button class="btn btn-secondary btn-approval" type="button" style="margin: 0px 3px;" disabled><i class="far fa-calendar-check"></i></button>'
                     }
-                    return '<button class="btn btn-info btn-detail" type="button">Detail</button>'
-                            + '<button class="btn btn-success btn-approval" type="button" style="margin: 0px 3px;">Approval</button>'
+                    return '<button class="btn btn-info btn-detail" type="button"><i class="fa fa-eye"></i></button>'
+                            + '<button class="btn btn-success btn-approval" type="button" style="margin: 0px 3px;"><i class="far fa-calendar-check"></i></button>'
                     }
                 },               
             ],
@@ -116,10 +125,6 @@ $(document).ready(
                     $(".modal-body").find("#tb tbody")
                     .append(
                         "<tr>"
-                            +"<td>Staff Code</td>"
-                            +"<td>P123425</td>"
-                        +"</tr>"
-                        +"<tr>"
                             +"<td>Employee name</td>"
                             +"<td>"+data['sender']['name']+"</td>"
                         +"</tr>"
@@ -242,7 +247,22 @@ $(document).ready(
         $('#myforms tbody').on( 'click', '.btn-approval', function () {
             var data = table.row( $(this).parents('tr') ).data();
             action = "/drs/allforms/"+data['id']+"/update/"
-            $('#approval').attr('action', action);
+            // $('#approval').attr('action', action);
+            $('#approval').submit(function(e){
+                e.preventDefault();
+                var serializedData = $(this).serialize();
+                $.ajax({
+                    url: action,
+                    type: "POST",
+                    data: serializedData,
+                    success: function(reponse){
+                        if(reponse.status == "Success"){
+                            $("#approval-modal").modal('hide')
+                            table.ajax.reload();
+                        }
+                    }       
+                });
+            })
             $('#approval-modal').modal();
             
         } );

@@ -102,9 +102,20 @@ $(document).ready(
         } );
         $('#listreport tbody').on( 'click', '.btn-delete', function () {
             var data = table.row( $(this).parents('tr') ).data();
-            // action = "{% url 'form_delete' "+data['id']+"%}"
             action = "/drs/report/"+data['id']+"/delete/"
-            $('#delete').attr('action', action);
+            $('#delete').click(function(){
+                $.ajax({
+                    url: action,
+                    type: "POST",
+                    data: { 'pk' : data['id'] },
+                    success: function(data){
+                        if(data.form_is_valid){
+                            $("#delete-confirm").modal('hide')
+                            table.ajax.reload();
+                        }
+                    }       
+                });
+            })
             $("#delete-confirm").modal()
         } );
         $('body').on('hidden.bs.modal', '.modal', function () {
