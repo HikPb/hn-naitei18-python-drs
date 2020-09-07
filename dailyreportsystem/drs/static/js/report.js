@@ -16,13 +16,12 @@ $(document).ready(
             },
             "columns": [
                 {"data": "id"},
-                {"data": "sender","visible": false,
-                "searchable": false,},
+                {"data": "sender.name"},
                 {"data": "created_at",
                 "render": function(data, type, row){
                     return moment(data).format('HH:mm, DD-MM-YYYY')
                 }},
-                {"data": "plan"},
+                {"data": "plan.title"},
                 {"data": "actual"},
                 {"data": "issue"},
                 {"data": "next",
@@ -78,7 +77,7 @@ $(document).ready(
                         +"</tr>"
                         +"<tr>"
                             +"<td>Plan</td>"
-                            +"<td>"+data['plan']+"</td>"
+                            +"<td>"+data['plan']['title']+"</td>"
                         +"</tr>"
                         +"<tr>"
                             +"<td>Actual</td>"

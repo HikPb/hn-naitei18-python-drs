@@ -63,12 +63,16 @@
                         <input class="form-control" type="date" style="width:300px;">
                     </td>
                 </tr>
+                <tr>
+                    <td class="report-info" style="width:150px;padding-top: 20px;">
+                        {% trans "Plan " %}
+                    </td>
+                    <td>
+                        <option name="plan" style="width:300px;">{{form.plan}}</option>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <span class="required">{% trans "Plan " %}</span>
-            <span>
-                <textarea class="form-control" name="plan" rows="2" style="margin-bottom: 20px;" required></textarea>
-            </span>
             <span class="required">{% trans "Actual " %}</span>
             <span>
                     <textarea class="form-control" name="actual" rows="2" style="margin-bottom: 20px;" required></textarea>
@@ -81,7 +85,9 @@
             <span>
                     <textarea class="form-control" name="next" rows="2" style="margin-bottom: 20px;" required></textarea>
             </span>
+
             <!--            button-->
+
             <button class="report-filter-btn btn btn-info btn-sm btn-oval" type="button" onclick="tai_lai_trang()" style="margin-right: 200px;">
                 <a href="{% url 'reports' %}">
                     <i class="fa fa-rotate-left"></i>{% trans "Cancel " %}

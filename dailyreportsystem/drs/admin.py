@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import User, Form, Division, Position, Notification, Skill, TimeKeeping, Report, Profile
+from .models import User, Form, Division, Position, Notification, Skill, TimeKeeping, Report, Profile, Plan
 
 
 class CustomUserAdmin(UserAdmin):
@@ -27,6 +27,7 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(Skill)
 admin.site.register(Position)
 admin.site.register(Division)
+admin.site.register(Plan)
 admin.site.register(TimeKeeping)
 admin.site.register(Notification)
 admin.site.register(Report)

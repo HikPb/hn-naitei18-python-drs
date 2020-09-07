@@ -275,6 +275,7 @@ def profile_update(request):
 		'p_form': p_form
 	}
 
+
 	return render(request, 'profile/profile_update.html', context)
 
 def success_activation(request):

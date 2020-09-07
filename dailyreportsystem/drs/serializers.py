@@ -1,5 +1,14 @@
 from rest_framework import serializers
-from .models import Form, User, Report, Notification
+from .models import Form, User, Report, Notification, Division, Plan
+
+class DivisionSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Division
+        fields = (
+            'id', 'name', 'manager',
+        )
+        datatables_always_serialize = ('id',)
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -9,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'name', 'email',
         )
         datatables_always_serialize = ('id',)
+
 class FormSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     sender = UserSerializer()
@@ -27,20 +37,22 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = "__all__"
 
-# class ReportSerializer(serializers.ModelSerializer):
-#     artist = ArtistSerializer()
-#     genres = serializers.SerializerMethodField()
-#     def get_genres(self, album):
-#         return ', '.join([str(genre) for genre in album.genres.all()])
-#     class Meta:
-#         model = Album
-#         fields = (
-#         'rank', 'name', 'year', 'artist_name', 'genres',
-#         )
+class PlanSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Plan
+        fields = (
+            'id', 'title',
+        )
+        datatables_always_serialize = ('id',)
+
 class ReportSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     sender = UserSerializer()
     receiver = UserSerializer()
+    plan = PlanSerializer()
+
     class Meta:
         model = Report
         fields = (

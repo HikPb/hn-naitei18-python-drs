@@ -66,12 +66,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 	dob = models.DateField(null=True, blank=True)
 	phone = models.CharField(max_length=11, null=True, blank=True)
 	skill = models.ManyToManyField('Skill', help_text="Your skills", blank=True)
-	manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True, related_name='manager_user')
 	division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
+	manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True, related_name='manager_user')
+	# manager = models.CharField(max_length=50, null=True, blank=True)
 	position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True, blank=True)
-	sex =  models.CharField(max_length=50, null=True, blank=True)
 
-	# profile = models.ImageField(de)
+	SEX_CHOICES = [
+		('na', 'Male'),
+		('nu', 'Female'),
+	]
+	sex = models.CharField(
+		max_length=2,
+		choices=SEX_CHOICES,
+		default= 'na',
+	)
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []  # Email & Password are required by default.
@@ -81,9 +89,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	def __str__(self):              # __unicode__ on Python 2
 		return self.email
-
-
-# class Sex(models.Model):
 
 
 class Form(models.Model):
@@ -143,13 +148,13 @@ class Form(models.Model):
 
 
 class Report(models.Model):
-    '''  dsfas '''
+    '''  Report '''
     # Fields
     sender = models.ForeignKey('User', on_delete=models.CASCADE, related_name='sender_report')
     receiver = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='receiver_report')
     created_at = models.DateTimeField(null=True, blank=True)
     division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
-    plan = models.CharField(max_length=100)
+    plan = models.ForeignKey('Plan', on_delete=models.SET_NULL, null=True, related_name='plan_report')
     actual = models.TextField(max_length=1000)
     next = models.TextField(max_length=1000)
     issue = models.TextField(max_length=1000, null=True, blank=True)
@@ -161,7 +166,14 @@ class Report(models.Model):
     
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
-        return self.plan
+        return self.plan.title
+
+class Plan(models.Model):
+	""" Plan """
+	title = models.CharField(max_length= 100, unique=True )
+
+	def __str__(self):
+		return self.title
 
 class Notification(models.Model):
 	""" Notification """
@@ -206,7 +218,7 @@ class Position(models.Model):
 
 class Division(models.Model):
 	"""Division"""
-	name = models.CharField(max_length=50, help_text='Enter your division (e.g. Education Team)')
+	name = models.CharField(max_length=50, help_text='Enter your division (e.g. Education Team)', unique=True )
 	manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='manager_div')
 	parent_id = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
 	# Method
