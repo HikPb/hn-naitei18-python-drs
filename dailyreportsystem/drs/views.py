@@ -25,6 +25,11 @@ from django.utils.translation import ugettext as _
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
+import xlwt
+import xlsxwriter
+from datetime import datetime
+from openpyxl.styles import colors
+from openpyxl.styles import Font
 UserModel = get_user_model()
 
 def index(request):
@@ -206,6 +211,7 @@ class ListReportManager(viewsets.ModelViewSet):
 		return Report.objects.filter(receiver=self.request.user)
 
 
+
 class ReportCreateView(LoginRequiredMixin, CreateView):
 	model = Report
 	login_url = 'login-user'
@@ -378,3 +384,249 @@ def mark_notification_as_readed(request):
         notification.save()
     return JsonResponse({'unreaded_notification_count':unreaded_notifications.count()})
 
+def export_reports_xls(request):
+	# user = request.user
+	# reports = Report.objects.filter(receiver=user)
+	response = HttpResponse(content_type='application/ms-excel')
+	response['Content-Disposition'] = 'attachment; filename="reports.xls"'
+
+	wb = xlwt.Workbook(encoding='utf-8')
+	ws = wb.add_sheet('Reports Data')  # this will make a sheet named Users Data
+
+
+	# Sheet header, first row
+
+
+	row_num = 0
+
+	font_style1 = xlwt.XFStyle()
+	font_style1.font.bold = True
+
+	borders = xlwt.Borders()
+	borders.left = 1
+	borders.right = 1
+	borders.top = 1
+	borders.bottom = 1
+	font_style1.borders = borders
+
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = xlwt.Style.colour_map['light_blue']
+	font_style1.pattern = pattern
+
+	columns = ['Sender', 'Date creeated', 'Plan', 'Actual', 'Issue', 'Tomorrow', ]
+
+	for col_num in range(len(columns)):
+		ws.write(row_num, col_num, columns[col_num], font_style1)  # at 0 row 0 column
+
+	# Sheet body, remaining rows
+	font_style = xlwt.XFStyle()
+	borders = xlwt.Borders()
+	borders.left = 1
+	borders.right = 1
+	borders.top = 1
+	borders.bottom = 1
+	font_style.borders = borders
+
+	# data
+	rp = request.user
+	rep= Report.objects.filter(receiver=rp)
+	# orders = rep.order_by('created_at')
+	rows = rep.values_list('sender__name', 'created_at', 'plan__title', 'actual', 'issue', 'next')
+	# for row in rows:
+	# 	row_num += 1
+	# 	for col_num in range(len(row)):
+	# 		ws.write(row_num, col_num, row[col_num], font_style)
+
+	for row, rowdata in enumerate(rows):
+		row_num += 1
+		for col, val in enumerate(rowdata):
+			if isinstance(val, datetime):
+				val = val.strftime('%H:%M %d/%m/%Y')
+			ws.write(row_num, col, val, font_style)
+
+	wb.save(response)
+
+	return response
+
+def export_forms_xls(request):
+	response = HttpResponse(content_type='application/ms-excel')
+	response['Content-Disposition'] = 'attachment; filename="forms.xls"'
+
+	wb = xlwt.Workbook(encoding='utf-8')
+	ws = wb.add_sheet('Forms Data')  # this will make a sheet named Users Data
+	ws2 = wb.add_sheet('Forms Leave Early')
+	ws3 = wb.add_sheet('Forms Leave Out')
+	ws4 = wb.add_sheet('Forms In Late')
+
+	# header
+	row_num = 0
+	row_num2 = 0
+	row_num3 = 0
+	row_num4 = 0
+
+	font_style1 = xlwt.XFStyle()
+
+	font_style1.font.bold = True
+
+	borders = xlwt.Borders()
+	borders.left = 1
+	borders.right = 1
+	borders.top = 1
+	borders.bottom = 1
+	font_style1.borders = borders
+
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = xlwt.Style.colour_map['light_blue']
+	font_style1.pattern = pattern
+
+	# sheet 1 first row
+	columns = ['Title', 'Type', 'Sender', 'Date creeated', 'Division', 'Reason', 'Status']
+
+	for col_num in range(len(columns)):
+		ws.write(row_num, col_num, columns[col_num], font_style1)  # at 0 row 0 column
+
+
+	# sheet 2 first row
+	columns2 = ['Title',
+				'Division',
+				'Date creeated',
+				'Sender',
+				'Checkout',
+				'Compensation_from',
+				'Compensation_to',
+				'Reason',
+				'Status']
+	for col_num in range(len(columns2)):
+		ws2.write(row_num2, col_num, columns2[col_num], font_style1)  # at 0 row 0 column
+
+	# sheet 3 first row
+	columns3 = ['Title',
+				'Division',
+				'Date creeated',
+				'Sender',
+				'Leave_from',
+				'Leave_to',
+				'Compensation_from',
+				'Compensation_to',
+				'Reason',
+				'Status']
+	for col_num in range(len(columns3)):
+		ws3.write(row_num3, col_num, columns3[col_num], font_style1)  # at 0 row 0 column
+
+	# sheet 4 first row
+	columns4 = ['Title',
+				'Division',
+				'Date creeated',
+				'Sender',
+				'Ckeckin',
+				'Leave_from',
+				'Leave_to',
+				'Reason',
+				'Status']
+	for col_num in range(len(columns4)):
+		ws4.write(row_num4, col_num, columns4[col_num], font_style1)  # at 0 row 0 column
+
+	# Sheet body, remaining rows
+	font_style = xlwt.XFStyle()
+	borders = xlwt.Borders()
+	borders.left = 1
+	borders.right = 1
+	borders.top = 1
+	borders.bottom = 1
+	font_style.borders = borders
+
+	# data
+	rp = request.user
+	rep= Form.objects.filter(receiver=rp)
+	# orders = rep.order_by('created_at')
+	le = Form.objects.filter(receiver=rp, form_type='le')
+	lo = Form.objects.filter(receiver=rp, form_type='lo')
+	il = Form.objects.filter(receiver=rp, form_type='il')
+
+	# row of sheet 1
+	rows = rep.values_list(
+		'title',
+		'form_type',
+		'sender__name',
+		'created_at',
+		'division__name',
+		'content',
+		'status'
+	)
+
+	for row, rowdata in enumerate(rows):
+		row_num += 1
+		for col, val in enumerate(rowdata):
+			if isinstance(val, datetime):
+				val = val.strftime('%H:%M %d/%m/%Y')
+			ws.write(row_num, col, val, font_style)
+
+
+	# row of sheet 2
+	rows2 = le.values_list(
+		'title',
+		'division__name',
+		'created_at',
+		'sender__name',
+		'checkout_time',
+		'compensation_from',
+		'compensation_to',
+		'content',
+		'status'
+	)
+
+	for row, rowdata in enumerate(rows2):
+		row_num2 += 1
+		for col, val in enumerate(rowdata):
+			if isinstance(val, datetime):
+				val = val.strftime('%H:%M %d/%m/%Y')
+			ws2.write(row_num2, col, val, font_style)
+
+	# row of sheet 3
+	rows3 = lo.values_list(
+		'title',
+		'division__name',
+		'created_at',
+		'sender__name',
+		'leave_from',
+		'leave_to',
+		'compensation_from',
+		'compensation_to',
+		'content',
+		'status'
+	)
+
+	# wb.save(response)
+	for row, rowdata in enumerate(rows3):
+		row_num3 += 1
+		for col, val in enumerate(rowdata):
+			if isinstance(val, datetime):
+				val = val.strftime('%H:%M %d/%m/%Y')
+			ws3.write(row_num3, col, val, font_style)
+
+	# row of sheet 4
+	rows4 = il.values_list(
+		'title',
+		'division__name',
+		'created_at',
+		'sender__name',
+		'checkin_time',
+		'leave_from',
+		'leave_to',
+		'content',
+		'status'
+	)
+
+	# wb.save(response)
+	for row, rowdata in enumerate(rows4):
+		row_num4 += 1
+		for col, val in enumerate(rowdata):
+			if isinstance(val, datetime):
+				val = val.strftime('%H:%M %d/%m/%Y')
+			ws4.write(row_num4, col, val, font_style)
+
+	wb.save(response)
+
+	return response

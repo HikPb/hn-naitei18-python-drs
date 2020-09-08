@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_datatables', 
     'crispy_forms',
-    'channels', 
+    'channels',
     'drs',
+    'django_crontab',
 
 ]
 
@@ -186,3 +187,8 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+
+CRONJOBS = [
+    ('0 0 28-31 * * [ "`date +%m`" != "`date --date=tomorrow +%m`" ]','drs.cron.auto_update'),
+]
