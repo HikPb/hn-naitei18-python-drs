@@ -39,4 +39,6 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout-user'),
     path('profile/', views.profiletUser, name='profile-user'),
     path('about_us/', views.about_us, name='about_us'),
+    path('export/excel_reports', views.export_reports_xls, name='export_reports_excel'),
+    path('export/excel_forms', views.export_forms_xls, name='export_forms_excel'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

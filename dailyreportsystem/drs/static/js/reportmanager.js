@@ -24,7 +24,7 @@ $(document).ready(
                  "render": function(data, type, row){
                     return moment(data).format('HH:mm, DD-MM-YYYY')
                 }},
-                {"data": "plan"},
+                {"data": "plan.title"},
                 {"data": "actual"},
                 {"data": "issue"},
                 {"data": "next",
