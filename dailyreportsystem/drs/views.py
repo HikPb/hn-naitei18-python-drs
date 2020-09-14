@@ -105,11 +105,17 @@ def changepassword(request):
 #-----------------------------------------------------------------------------------------------------------------------------------------
 
 def getMyForms(request): 
+	if not request.user.is_authenticated:
+		return redirect(reverse_lazy('login-user'))
 	return render(request, 'formrequest/list_form_request_employee.html')
 
 
 def getFormRequest(request):
-    return render(request, 'formrequest/list_form_request_manager.html')
+	if not request.user.is_authenticated:
+		return redirect(reverse_lazy('login-user'))
+	if request.user.is_manager == True:
+		return render(request, 'formrequest/list_form_request_manager.html')
+	return HttpResponse(status=404)
     
 class MyForms(viewsets.ModelViewSet):
     # queryset = Form.objects.filter(form_type="il")
@@ -171,11 +177,11 @@ class FormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 def form_delete(request, pk):
 	form = get_object_or_404(Form, pk=pk)
 	data = dict()
-	if request.method == 'POST':
+	if (request.method == 'POST') and (form.sender == request.user):
 		form.delete()
 		data['form_is_valid'] = True
 		return JsonResponse(data)
-
+	return JsonResponse(data)
 @login_required
 @csrf_exempt
 def manager_update(request, pk):
