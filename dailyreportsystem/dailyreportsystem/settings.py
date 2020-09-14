@@ -190,5 +190,5 @@ CHANNEL_LAYERS = {
 
 
 CRONJOBS = [
-    ('0 0 28-31 * * [ "`date +%m`" != "`date --date=tomorrow +%m`" ]','drs.cron.auto_update'),
+    ('0 0 28-31 * * [ "date +%m" != "date --date=tomorrow +%m" ]','drs.cron.auto_update'),
 ]

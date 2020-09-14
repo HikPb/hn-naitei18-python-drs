@@ -51,18 +51,14 @@
         </tr>
         <tr>
           <td class="report-info" style="width:150px;padding-top: 20px;">
-            {% trans "Date created :" %}
+              {% trans "Plan " %}
           </td>
           <td>
-            <input class="form-control" type="date" style="width:300px;">
+              <option name="plan" style="width:300px;">{{form.plan}}</option>
           </td>
-        </tr>
+      </tr>
         </tbody>
       </table>
-      <span class="required">{% trans "Plan " %}</span>
-      <span>
-        <textarea class="form-control" name="plan" rows="2" style="margin-bottom: 20px;" required>{{report.plan}}</textarea>
-      </span>
       <span class="required">{% trans "Actual " %}</span>
       <span>
         <textarea class="form-control" name="actual" rows="2" style="margin-bottom: 20px;" required>{{report.actual}}</textarea>

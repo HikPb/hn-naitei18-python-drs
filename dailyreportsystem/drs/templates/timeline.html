@@ -1,52 +1,39 @@
+
 {% extends "base_generic.html" %}
 {% load i18n %}
+{% load static %}
+{%block media%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}">
+{%endblock%}
 {% block content %}
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
-</head>
-<div class="container text-center">
-    <header>
-<!--       <h1>NTB</h1> -->
-        <h3>{% trans "Timesheet entry" %}</h3>
-    </header>
-<main>
-    <form>
-        <div class="form-group row">
-            <div class="col-2"></div>
-        <label class="sr-only" for="name">{% trans "Name" %}</label>
-        <input type="text" class="form-control mb-2 mr-sm-2 col-4" id="name" placeholder="name">
-        <label class="sr-only" for="datePicker">{% trans "Name" %}Date</label>
-        <input type="text" class="form-control mb-2 mr-sm-2 col-4" id="datePicker" placeholder="week commencing">
-        <div class="col-2"></div>
+<div class="container">
+  <h1 style="margin-top: 20px; text-align: center;">Time Line</h1>
+  {% for item in object_list %}
+  <div class="timeline-section">
+    <div class="col-sm-12">
+      <div class="timeline-box">
+        <div class="box-title">
+          <span class="timeline-date">{{item.date}}</span>
         </div>
-    </form>
-    <table class="table table-dark table-striped table-hover">
-        <thead>
-        <tr>
-            <th>{% trans "Day" %}</th>
-            <th>{% trans "Date" %}</th>
-            <th>{% trans "Start Time" %}</th>
-            <th>{% trans "Finish Time" %}</th>
-            <th>{% trans "Break" %}</th>
-            <th>{% trans "Hours Worked" %}</th>
-        </tr>
-        </thead>
-        <tbody id="tBody">
-        </tbody>
-    </table>
-    <div class="row bottom d-none">
-        <div class="col">
-            <button type="button" id="submit" class="btn btn-success">{% trans "Submit" %}</button>
+        <div class="box-content">
+          {% for event in item.events%}
+          <div class="box-item"> <span style="margin-right: 10px;">{{event.time}}</span><strong style="margin-right: 10px;">{{event.event}}</strong><span>{{event.content}}</span></div>
+          {%endfor%}
         </div>
-        <div class="col">
-            <h2 id="hoursWorkedText" class="text-right">{% trans "Total Hours Worked:" %} <span id="totalHours">0</span></h2>
-        </div>
+      </div>
     </div>
-</main>
-<footer>
-    <h6>Created with <span style="color:#ff0000">&#10084;</span> by <a href="http://jncwebdev.co.uk/" target="_blank">JNC</a></h6>
-</footer>
+  </div>
+  {% endfor%}
+  <div id="timeline-anchor"></div>
 </div>
-<script src="{% static '/js/timeline.js' %}"></script>
-{% endblock %}
+{% if object_list.has_next %}
+<a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
+{% endif %}
+{%endblock%}
+{%block js%}
+<script>
+  var pageNum = parseInt("{{ page.number }}"); // The latest page loaded
+  var hasNextPage = {{ page.has_next|lower }}; // Indicates whether to expect another page after this one
+</script>
+<script src="{% static 'js/timeline.js' %}"></script>
+{%endblock%}

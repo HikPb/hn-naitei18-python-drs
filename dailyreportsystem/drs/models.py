@@ -227,13 +227,13 @@ class Division(models.Model):
         return self.name
 
 
-class TimeKeeping(models.Model):
-    """Model Timekeeping"""
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
-    checkin_time = models.DateTimeField(null=True, blank=True)
-    checkout_time = models.DateTimeField(null=True, blank=True)
-    date = models.DateField(null=True, blank=True)
-
+class Timeline(models.Model):
+	"""Model Timeline"""
+	user_id = models.ForeignKey('User', on_delete=models.CASCADE, null=True, related_name='user_timeline')
+	created_at = models.DateTimeField(null=True, blank=True)
+	event = models.CharField(max_length=10)
+	content = models.CharField(max_length=200)
+	
 
 class Profile(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, null=True)

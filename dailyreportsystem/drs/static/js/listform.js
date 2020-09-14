@@ -47,10 +47,14 @@ $(document).ready(
                 "visible": false,
                 "searchable": false,},
                 {"data": "compensation_from",
+                "visible": false,
+                "searchable": false,
                 "render": function(data, type, row){
                     return moment(data).format('HH:mm DD-MM-YYYY')
                 }},
                 {"data": "compensation_to",
+                "visible": false,
+                "searchable": false,
                 "render": function(data, type, row){
                     return moment(data).format('HH:mm DD-MM-YYYY')
                 }},
