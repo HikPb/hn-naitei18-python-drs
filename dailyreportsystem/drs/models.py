@@ -220,7 +220,7 @@ class Division(models.Model):
     """Division"""
     name = models.CharField(max_length=50, help_text='Enter your division (e.g. Education Team)', unique=True )
     manager = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='manager_div')
-    parent_id = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
+    parent = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True, blank=True)
     # Method
 
     def __str__(self):
