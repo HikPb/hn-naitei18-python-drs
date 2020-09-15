@@ -298,17 +298,21 @@ def report_delete(request, pk):
 # Profile view
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
-@login_required
 def profile(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('login-user'))
     return render(request, 'profile/profile.html')
 
 
 def profiletUser(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('login-user'))
     return render(request, 'profile.html')
 
 
-@login_required
 def profile_update(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('login-user'))
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES,
