@@ -197,12 +197,17 @@ def manager_update(request, pk):
 #-----------------------------------------------------------------------------------------------------------------------------------------
 
 def getListReport(request):
+	if not request.user.is_authenticated:
+		return redirect(reverse_lazy('login-user'))
 	return render(request, 'report/list_report.html')
 
 
 def getListReportManager(request):
-	return render(request, 'report/manager_list_report.html')
-
+	if not request.user.is_authenticated:
+		return redirect(reverse_lazy('login-user'))
+	if request.user.is_manager == True:
+		return render(request, 'report/manager_list_report.html')
+	return HttpResponse(status=404)
 
 class ListReport(viewsets.ModelViewSet):
 	serializer_class = ReportSerializer
@@ -264,11 +269,12 @@ class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 def report_delete(request, pk):
 	report = get_object_or_404(Report, pk=pk)
 	data = dict()
-	if request.method == 'POST':
+	if (request.method == 'POST') and (report.sender == request.user):
 		report.delete()
 		data['form_is_valid'] = True
 		return JsonResponse(data)
 
+	return JsonResponse(data)
 #-----------------------------------------------------------------------------------------------------------------------------------------
 # Profile view
 #-----------------------------------------------------------------------------------------------------------------------------------------
